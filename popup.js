@@ -16,6 +16,14 @@
   const DECAY_AMOUNT = 5;
   const MAX_STAT = 100;
 
+  const SHOP_ITEMS = [
+    { id: 'bg-default', name: 'Pièce Simple', price: 0, icon: '🏠' },
+    { id: 'bg-forest', name: 'Forêt Magique', price: 50, icon: '🌲' },
+    { id: 'bg-beach', name: 'Plage Ensoleillée', price: 100, icon: '🏖️' },
+    { id: 'bg-hacker', name: 'Bureau Hacker', price: 150, icon: '💻' },
+    { id: 'bg-space', name: 'Station Spatiale', price: 300, icon: '🚀' }
+  ];
+
   const defaultState = {
     isAdopted: false,
     name: '',
@@ -27,6 +35,8 @@
     niveau: 1,
     coins: 20,
     isSleeping: false,
+    unlockedBackgrounds: ['bg-default'],
+    currentBackground: 'bg-default',
     lastSaved: Date.now()
   };
 
@@ -58,6 +68,13 @@
   const btnSleep = document.getElementById('btn-sleep');
   const btnArcade = document.getElementById('btn-arcade');
   const btnReset = document.getElementById('btn-reset');
+  const btnShop = document.getElementById('btn-shop');
+  
+  // Boutique Elements
+  const shopScreen = document.getElementById('shop-screen');
+  const shopItemsContainer = document.getElementById('shop-items');
+  const shopCoins = document.getElementById('shop-coins');
+  const btnShopQuit = document.getElementById('btn-shop-quit');
 
   // Mini-jeu Elements DOM
   const arcadeScreen = document.getElementById('arcade-screen');
@@ -112,6 +129,10 @@
   }
 
   function startGame() {
+    // Migration des anciennes sauvegardes
+    if (!navi.unlockedBackgrounds) navi.unlockedBackgrounds = ['bg-default'];
+    if (!navi.currentBackground) navi.currentBackground = 'bg-default';
+
     onboardingScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     petNameDisplay.textContent = navi.name || "NaviPet";
@@ -414,6 +435,83 @@
     gameScreen.classList.remove('hidden');
   });
 
+  // --- LOGIQUE BOUTIQUE ---
+  function openShop() {
+    gameScreen.classList.add('hidden');
+    shopScreen.classList.remove('hidden');
+    shopCoins.textContent = navi.coins;
+    renderShopItems();
+  }
+
+  function renderShopItems() {
+    shopItemsContainer.innerHTML = '';
+    SHOP_ITEMS.forEach(item => {
+      const isUnlocked = navi.unlockedBackgrounds.includes(item.id);
+      const isEquipped = navi.currentBackground === item.id;
+      
+      const div = document.createElement('div');
+      div.style.display = 'flex';
+      div.style.justifyContent = 'space-between';
+      div.style.alignItems = 'center';
+      div.style.padding = '10px';
+      div.style.backgroundColor = isEquipped ? '#2ecc71' : 'var(--panel-bg)';
+      div.style.border = '2px solid var(--border-color)';
+      div.style.borderRadius = '5px';
+      div.style.color = isEquipped ? 'white' : 'inherit';
+
+      const info = document.createElement('div');
+      info.style.textAlign = 'left';
+      info.style.fontSize = '9px';
+      info.innerHTML = "<span style=\"font-size:16px;\">" + item.icon + "</span><br>" + item.name;
+
+      const btn = document.createElement('button');
+      btn.style.fontFamily = 'inherit';
+      btn.style.fontSize = '8px';
+      btn.style.padding = '8px';
+      btn.style.cursor = 'pointer';
+      btn.style.borderRadius = '3px';
+
+      if (isEquipped) {
+        btn.textContent = 'Équipé';
+        btn.disabled = true;
+      } else if (isUnlocked) {
+        btn.textContent = 'Équiper';
+        btn.style.backgroundColor = '#3498db';
+        btn.style.color = 'white';
+        btn.onclick = () => {
+          navi.currentBackground = item.id;
+          saveData();
+          renderShopItems();
+        };
+      } else {
+        btn.textContent = item.price + ' 🪙';
+        btn.style.backgroundColor = navi.coins >= item.price ? '#f1c40f' : '#bdc3c7';
+        btn.disabled = navi.coins < item.price;
+        btn.onclick = () => {
+          if (navi.coins >= item.price) {
+            navi.coins -= item.price;
+            navi.unlockedBackgrounds.push(item.id);
+            navi.currentBackground = item.id;
+            saveData();
+            shopCoins.textContent = navi.coins;
+            renderShopItems();
+          }
+        };
+      }
+
+      div.appendChild(info);
+      div.appendChild(btn);
+      shopItemsContainer.appendChild(div);
+    });
+  }
+
+  btnShop.addEventListener('click', openShop);
+  btnShopQuit.addEventListener('click', () => {
+    shopScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    updateUI();
+  });
+
   btnReset.addEventListener('click', () => {
     chrome.storage.local.clear(() => {
       // Recharge la fenêtre, ce qui revient à l'écran d'adoption (isAdopted = false)
@@ -424,4 +522,11 @@
   // Init
   loadData();
 });
+
+
+
+
+
+
+
 

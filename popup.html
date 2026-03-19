@@ -129,7 +129,13 @@
     .anim-shake { animation: shake 0.5s infinite; }
     .anim-eat { animation: eat 0.5s ease; }
     .anim-sleep { animation: sleep 3s infinite ease-in-out; }
-  </style>
+  
+    .bg-default { background: transparent; }
+    .bg-hacker { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); box-shadow: inset 0 0 10px #00ff00; }
+    .bg-beach { background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #eed690 60%, #e6ca7b 100%); }
+    .bg-forest { background: linear-gradient(to bottom, #2b5876, #4e4376); border-bottom: 20px solid #1e824c; }
+    .bg-space { background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%); }
+</style>
 </head>
 <body class="theme-day">
   <div id="onboarding-screen">
@@ -192,10 +198,21 @@
       <button id="btn-play" class="action-btn">⚽<br>Jouer</button>
       <button id="btn-sleep" class="action-btn">🛏️<br>Dormir</button>
       <button id="btn-arcade" class="action-btn arcade">🎮<br>Arcade</button>
-      <button id="btn-reset" class="action-btn danger">🗑️<br>Reset</button>
+      <button id="btn-shop" class="action-btn" style="background-color: #f1c40f; color: #2c3e50; border-color: #f39c12;">🛒<br>Boutique</button>
     </div>
   </div>
 
+    <!-- ECRAN BOUTIQUE -->
+  <div id="shop-screen" class="hidden" style="display: flex; flex-direction: column; min-height: 480px; padding-top: 20px;">
+    <h2 style="color:#f1c40f; margin-top:0; font-size:16px;">🛒 Boutique</h2>
+    <div style="font-size: 10px; margin-bottom: 10px; color:#bdc3c7;">Solde : <span id="shop-coins" style="color:#f1c40f;">0</span> 🪙</div>
+    
+    <div id="shop-items" style="flex-grow:1; display:flex; flex-direction:column; gap:10px; padding:0 20px; overflow-y:auto; margin-bottom:15px;">
+      <!-- Articles injectés via JS -->
+    </div>
+    
+    <button id="btn-shop-quit" class="action-btn danger" style="width:80%; margin:0 auto; padding:15px; font-size:12px;">Retour</button>
+  </div>
   <!-- ECRAN ARCADE MINI-JEU -->
   <div id="arcade-screen" class="hidden" style="display: flex; flex-direction: column; min-height: 480px; padding-top: 20px;">
     <h2 style="color:#9b59b6; margin-top:0; font-size:16px;">🕹️ Chasse aux Bugs</h2>
@@ -214,6 +231,9 @@
   </div>
 
   <script src="popup.js"></script>
+<div style='text-align:center; margin-top:20px; padding-bottom:10px;'><a id='btn-reset' href='#' style='color:#e74c3c; font-size:8px; text-decoration:none;'>[Danger: Reset Sauvegarde]</a></div>
 </body>
 </html>
+
+
 
