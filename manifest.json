@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "NaviPet",
+  "version": "1.0",
+  "description": "Votre petit animal virtuel de bureau.",
+  "action": {
+    "default_title": "Ouvrir NaviPet",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage"
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Navipet</title>
+  <style>
+    body {
+      width: 250px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 15px;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.2rem;
+      margin: 0 0 10px 0;
+      color: #2c3e50;
+    }
+    .avatar {
+      font-size: 64px;
+      margin: 15px 0;
+      user-select: none;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .stat-item {
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      width: 40%;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: #7f8c8d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-around;
+    }
+    .actions button {
+      border: none;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: transform 0.1s, opacity 0.2s;
+      width: 45%;
+    }
+    .actions button:hover {
+      opacity: 0.9;
+    }
+    .actions button:active {
+      transform: scale(0.95);
+    }
+    .btn-feed {
+      background-color: #e74c3c;
+      color: white;
+    }
+    .btn-play {
+      background-color: #3498db;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Navipet</h1>
+  
+  <div class="avatar" id="pet-avatar">👾</div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-label">Faim</span>
+      <span class="stat-value" id="hunger-val">100%</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Bonheur</span>
+      <span class="stat-value" id="happiness-val">100%</span>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <button id="btn-feed" class="btn-feed">🍎 Nourrir</button>
+    <button id="btn-play" class="btn-play">🕹️ Jouer</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
