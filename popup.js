@@ -1,12 +1,12 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
   // --- DONNEES DES ESPECES ---
   const SPECIES_DATA = [
-    { id: 'dragon', name: 'Dragon', emojis: ['🥚', '🐣', '🐥', '🦉', '🦅', '🐉'] },
-    { id: 'dog', name: 'Chien', emojis: ['📦', '🐶', '🐕', '🦮', '🐩', '🐺'] },
-    { id: 'cat', name: 'Chat', emojis: ['🥛', '🐱', '🐈', '🐈‍⬛', '🐅', '🐆'] },
-    { id: 'robot', name: 'Robot', emojis: ['💾', '🔌', '🤖', '👾', '🦾', '🚀'] },
-    { id: 'plant', name: 'Plante', emojis: ['🌱', '🌿', '☘️', '🪴', '🌻', '🌺'] }
-  ];
+      { id: 'dragon', name: 'Dragon', emojis: ['🥚', '🦎', '🐉', '🐉', '🐉', '🐉'] },
+      { id: 'dog', name: 'Chien', emojis: ['🥚', '🐶', '🐕', '🐕', '🐕', '🐕'] },
+      { id: 'cat', name: 'Chat', emojis: ['🥚', '🐱', '🐈', '🐈', '🐈', '🐈'] },
+      { id: 'robot', name: 'Robot', emojis: ['📦', '🤖', '🤖', '🤖', '🤖', '🤖'] },
+      { id: 'plant', name: 'Plante', emojis: ['🌱', '🌿', '🪴', '🌳', '🌳', '🌸'] }
+    ];
   let currentSpeciesIndex = 0;
 
   // --- VARIABLES GLOBALES ---
@@ -17,12 +17,12 @@
   const MAX_STAT = 100;
 
   const SHOP_ITEMS = [
-    { id: 'bg-default', name: 'Pièce Simple', price: 0, icon: '🏠' },
-    { id: 'bg-forest', name: 'Forêt Magique', price: 50, icon: '🌲' },
-    { id: 'bg-beach', name: 'Plage Ensoleillée', price: 100, icon: '🏖️' },
-    { id: 'bg-hacker', name: 'Bureau Hacker', price: 150, icon: '💻' },
-    { id: 'bg-space', name: 'Station Spatiale', price: 300, icon: '🚀' }
-  ];
+      { id: 'bg-default', name: 'Pièce Simple', price: 0, icon: '🏠' },
+      { id: 'bg-forest', name: 'Forêt Magique', price: 50, icon: '🌲' },
+      { id: 'bg-beach', name: 'Plage Ensoleillée', price: 100, icon: '🏖️' },
+      { id: 'bg-hacker', name: 'Bureau Hacker', price: 150, icon: '💻' },
+      { id: 'bg-space', name: 'Station Spatiale', price: 300, icon: '🚀' }
+    ];
 
   const defaultState = {
     isAdopted: false,
@@ -172,7 +172,7 @@
     
     saveData();
     startGame();
-    spawnParticle('✨');
+    spawnParticle('?');
   });
 
   // --- GAME LOGIQUE ---
@@ -201,6 +201,7 @@
   }
 
   function updateUI() {
+    screenArea.className = navi.currentBackground || 'bg-default';
     updateBar(barFaim, navi.faim);
     updateBar(barJoie, navi.joie);
     updateBar(barEnergie, navi.energie);
@@ -223,7 +224,7 @@
       toggleButtons(true);
       btnSleep.innerHTML = '☀️<br>Réveil';
     } else if (navi.faim <= 0 || navi.joie <= 0) {
-      avatar.textContent = '☠️';
+      avatar.textContent = '💤';
       avatar.classList.add('anim-shake');
       statusMessage.innerHTML = 'Au secours !';
       statusMessage.style.color = '#c0392b';
@@ -309,31 +310,32 @@
     if (navi.xp >= XP_PER_LEVEL) {
       navi.niveau++;
       navi.xp = 0;
-      showMessage('Niveau Sup ! 🎉', '#9b59b6');
+      showMessage('Niveau Sup ! ✨', '#9b59b6');
       triggerAnimation('anim-eat');
     }
     
-    spawnParticle('💖', e.clientX, e.clientY);
+    spawnParticle('❤️', e.clientX, e.clientY);
     triggerAnimation('anim-eat'); // eat est un petit rebond mignon
     saveData();
   });
 
   btnWork.addEventListener('click', () => {
     if (navi.energie < 20) { showMessage('Trop fatigué...', '#e74c3c'); triggerAnimation('anim-shake'); return; }
-    navi.energie -= 20; navi.faim -= 15; navi.joie -= 5; navi.coins += 10;
-    spawnParticle('🪙'); triggerAnimation('anim-idle'); saveData(); showMessage('+10 DevCoins', '#f1c40f');
+    navi.energie -= 10; navi.faim -= 15; navi.joie -= 5; navi.coins += 10;
+    spawnParticle('💻'); triggerAnimation('anim-idle'); saveData();
+      showMessage('+10 DevCoins', '#f1c40f');
   });
 
   btnFeed.addEventListener('click', () => {
     if (navi.coins < 5) { showMessage('Sans le sou !', '#e74c3c'); triggerAnimation('anim-shake'); return; }
-    navi.coins -= 5; navi.faim = Math.min(MAX_STAT, navi.faim + 35); navi.energie -= 5;
+    navi.coins -= 5; navi.faim = Math.min(MAX_STAT, navi.faim + 35); navi.energie -= 2;
     spawnParticle('🍎'); triggerAnimation('anim-eat'); saveData();
   });
 
   btnPlay.addEventListener('click', () => {
     if (navi.energie < 15) { showMessage('Trop fatigué...', '#e74c3c'); triggerAnimation('anim-shake'); return; }
-    navi.joie = Math.min(MAX_STAT, navi.joie + 25); navi.energie -= 15; navi.faim -= 10;
-    spawnParticle('⚽'); triggerAnimation('anim-idle'); saveData();
+    navi.joie = Math.min(MAX_STAT, navi.joie + 25); navi.energie -= 8; navi.faim -= 10;
+    spawnParticle('?'); triggerAnimation('anim-idle'); saveData();
   });
 
   btnSleep.addEventListener('click', () => {
@@ -457,7 +459,7 @@
       div.style.backgroundColor = isEquipped ? '#2ecc71' : 'var(--panel-bg)';
       div.style.border = '2px solid var(--border-color)';
       div.style.borderRadius = '5px';
-      div.style.color = isEquipped ? 'white' : 'inherit';
+      div.style.color = 'var(--text-color)';
 
       const info = document.createElement('div');
       info.style.textAlign = 'left';
@@ -522,6 +524,15 @@
   // Init
   loadData();
 });
+
+
+
+
+
+
+
+
+
 
 
 

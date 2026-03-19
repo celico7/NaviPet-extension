@@ -13,7 +13,7 @@
     }
     body.theme-night {
       --bg-color: #2c3e50;
-      --text-color: #ecf0f1;
+      --text-color: var(--bg-color);
       --panel-bg: rgba(0, 0, 0, 0.8);
       --border-color: #7f8c8d;
     }
@@ -22,7 +22,7 @@
       margin: 0;
       font-family: 'Press Start 2P', monospace;
       background-color: var(--bg-color);
-      color: var(--text-color);
+      color: var(--bg-color);
       text-align: center;
       transition: background-color 1s ease, color 1s ease;
       user-select: none;
@@ -47,7 +47,7 @@
     .slider-btn {
       background: var(--panel-bg);
       border: 2px solid var(--border-color);
-      color: var(--text-color);
+      color: var(--bg-color);
       font-family: inherit;
       padding: 10px;
       cursor: pointer;
@@ -104,12 +104,12 @@
     .stats-panel { background-color: var(--panel-bg); padding: 10px; border-top: 2px solid var(--border-color); }
     .stat-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 9px; }
     .stat-label { width: 60px; text-align: left; }
-    .bar-container { flex-grow: 1; background-color: #bdc3c7; height: 10px; border-radius: 5px; overflow: hidden; margin: 0 10px; border: 1px solid var(--border-color); }
+    .bar-container { flex-grow: 1; background-color: var(--border-color); height: 10px; border-radius: 5px; overflow: hidden; margin: 0 10px; border: 1px solid var(--border-color); }
     .bar-fill { height: 100%; transition: width 0.3s ease, background-color 0.3s ease; }
     .bar-danger { background-color: #e74c3c !important; }
     .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px; background-color: var(--panel-bg); }
-    .action-btn { background-color: #ecf0f1; border: 2px solid var(--border-color); border-radius: 5px; padding: 10px; font-family: inherit; font-size: 9px; cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .action-btn:hover { background-color: #bdc3c7; transform: translateY(-2px); }
+    .action-btn { background-color: var(--bg-color); border: 2px solid var(--border-color); border-radius: 5px; padding: 10px; font-family: inherit; font-size: 9px; cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .action-btn:hover { background-color: var(--border-color); transform: translateY(-2px); }
     .action-btn:active { transform: translateY(0); }
     
     .action-btn.arcade { background-color: #a29bfe; color: white; border-color: #6c5ce7; }
@@ -148,7 +148,7 @@
       <button id="slide-right" class="slider-btn">▶</button>
     </div>
     
-    <p id="species-name" style="font-size: 12px; margin-bottom: 20px; color: var(--text-color);">Dragon</p>
+    <p id="species-name" style="font-size: 12px; margin-bottom: 20px; color: var(--bg-color);">Dragon</p>
     
     <input type="text" id="pet-name-input" class="name-input" placeholder="Son p'tit nom..." maxlength="12">
     <button id="btn-adopt">ADOPTER</button>
@@ -162,7 +162,7 @@
           <div id="level-display">Niv. 1</div>
           <div style="font-size: 8px;">XP</div>
         </div>
-        <div style="background: #bdc3c7; height: 5px; border-radius: 3px; overflow: hidden; margin-top: 3px; border: 1px solid var(--border-color);">
+        <div style="background: var(--border-color); height: 5px; border-radius: 3px; overflow: hidden; margin-top: 3px; border: 1px solid var(--border-color);">
           <div id="bar-xp" style="height: 100%; width: 0%; background-color: #9b59b6; transition: width 0.3s ease;"></div>
         </div>
       </div>
@@ -205,7 +205,7 @@
     <!-- ECRAN BOUTIQUE -->
   <div id="shop-screen" class="hidden" style="display: flex; flex-direction: column; min-height: 480px; padding-top: 20px;">
     <h2 style="color:#f1c40f; margin-top:0; font-size:16px;">🛒 Boutique</h2>
-    <div style="font-size: 10px; margin-bottom: 10px; color:#bdc3c7;">Solde : <span id="shop-coins" style="color:#f1c40f;">0</span> 🪙</div>
+    <div style="font-size: 10px; margin-bottom: 10px; color:var(--border-color);">Solde : <span id="shop-coins" style="color:#f1c40f;">0</span> 🪙</div>
     
     <div id="shop-items" style="flex-grow:1; display:flex; flex-direction:column; gap:10px; padding:0 20px; overflow-y:auto; margin-bottom:15px;">
       <!-- Articles injectés via JS -->
@@ -215,10 +215,10 @@
   </div>
   <!-- ECRAN ARCADE MINI-JEU -->
   <div id="arcade-screen" class="hidden" style="display: flex; flex-direction: column; min-height: 480px; padding-top: 20px;">
-    <h2 style="color:#9b59b6; margin-top:0; font-size:16px;">🕹️ Chasse aux Bugs</h2>
-    <p style="font-size: 8px; margin-bottom: 10px;">Écrase les bugs (🐛) pour gagner des DevCoins !</p>
+    <h2 style="color:#9b59b6; margin-top:0; font-size:16px; color:white;">🕹️ Chasse aux Bugs</h2>
+    <p style="font-size: 8px; margin-bottom: 10px; color:white;">Écrase les bugs (🐛) pour gagner des DevCoins !</p>
     
-    <div style="display:flex; justify-content:space-between; padding:0 20px; font-size:10px; margin-bottom: 5px;">
+    <div style="display:flex; justify-content:space-between; padding:0 20px; font-size:10px; margin-bottom: 5px; color:white;">
       <span>Temps : <span id="mg-timer" style="color:#e74c3c;">15</span>s</span>
       <span>Score : <span id="mg-score" style="color:#f1c40f;">0</span></span>
     </div>
@@ -234,6 +234,8 @@
 <div style='text-align:center; margin-top:20px; padding-bottom:10px;'><a id='btn-reset' href='#' style='color:#e74c3c; font-size:8px; text-decoration:none;'>[Danger: Reset Sauvegarde]</a></div>
 </body>
 </html>
+
+
 
 
 
