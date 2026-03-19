@@ -1,1 +1,219 @@
-REPLACE_ME
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>NaviPet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #87CEEB;
+      --text-color: #2c3e50;
+      --panel-bg: rgba(255, 255, 255, 0.9);
+      --border-color: #34495e;
+    }
+    body.theme-night {
+      --bg-color: #2c3e50;
+      --text-color: #ecf0f1;
+      --panel-bg: rgba(0, 0, 0, 0.8);
+      --border-color: #7f8c8d;
+    }
+    body {
+      width: 320px;
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      text-align: center;
+      transition: background-color 1s ease, color 1s ease;
+      user-select: none;
+    }
+    .hidden { display: none !important; }
+    
+    #onboarding-screen {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 400px;
+      justify-content: center;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .slider-btn {
+      background: var(--panel-bg);
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+      font-family: inherit;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .slider-btn:hover { background: #f1c40f; }
+    .name-input {
+      font-family: inherit;
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 80%;
+      border: 2px solid var(--border-color);
+      border-radius: 5px;
+      text-align: center;
+      font-size: 10px;
+    }
+    #btn-adopt {
+      background-color: #2ecc71;
+      color: white;
+      border: 2px solid #27ae60;
+      padding: 15px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    #btn-adopt:hover { background-color: #27ae60; }
+    
+    #game-screen { display: flex; flex-direction: column; min-height: 480px; }
+    .header {
+      background-color: var(--panel-bg);
+      padding: 10px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      text-align: left;
+    }
+    #screen-area {
+      height: 180px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .avatar { font-size: 64px; display: inline-block; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); z-index: 10; cursor: pointer; }
+    #status-message { margin-top: 10px; font-size: 10px; height: 10px; z-index: 10; }
+    #pet-name-display { font-size: 14px; color: #e67e22; margin-bottom: 5px; }
+    .stats-panel { background-color: var(--panel-bg); padding: 10px; border-top: 2px solid var(--border-color); }
+    .stat-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 9px; }
+    .stat-label { width: 60px; text-align: left; }
+    .bar-container { flex-grow: 1; background-color: #bdc3c7; height: 10px; border-radius: 5px; overflow: hidden; margin: 0 10px; border: 1px solid var(--border-color); }
+    .bar-fill { height: 100%; transition: width 0.3s ease, background-color 0.3s ease; }
+    .bar-danger { background-color: #e74c3c !important; }
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px; background-color: var(--panel-bg); }
+    .action-btn { background-color: #ecf0f1; border: 2px solid var(--border-color); border-radius: 5px; padding: 10px; font-family: inherit; font-size: 9px; cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .action-btn:hover { background-color: #bdc3c7; transform: translateY(-2px); }
+    .action-btn:active { transform: translateY(0); }
+    
+    .action-btn.arcade { background-color: #a29bfe; color: white; border-color: #6c5ce7; }
+    .action-btn.arcade:hover { background-color: #6c5ce7; }
+    .action-btn.danger { background-color: #ff7675; color: white; border-color: #d63031; }
+    .action-btn.danger:hover { background-color: #d63031; }
+    
+    .particle { position: absolute; font-size: 20px; pointer-events: none; animation: floatUp 1s ease-out forwards; z-index: 5; }
+    
+    @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    @keyframes eat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    @keyframes sleep { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(0.95) rotate(5deg); } }
+    
+    .anim-idle { animation: bob 2s infinite ease-in-out; }
+    .anim-shake { animation: shake 0.5s infinite; }
+    .anim-eat { animation: eat 0.5s ease; }
+    .anim-sleep { animation: sleep 3s infinite ease-in-out; }
+  </style>
+</head>
+<body class="theme-day">
+  <div id="onboarding-screen">
+    <h2 style="color:#d35400; margin-top:0;">Adoption</h2>
+    <p style="font-size: 10px; margin-bottom: 20px; line-height: 1.5;">Choisis et nomme<br>ton nouveau compagnon !</p>
+    
+    <div class="slider-container">
+      <button id="slide-left" class="slider-btn">◀</button>
+      <div id="slider-avatar" class="avatar anim-idle">🥚</div>
+      <button id="slide-right" class="slider-btn">▶</button>
+    </div>
+    
+    <p id="species-name" style="font-size: 12px; margin-bottom: 20px; color: var(--text-color);">Dragon</p>
+    
+    <input type="text" id="pet-name-input" class="name-input" placeholder="Son p'tit nom..." maxlength="12">
+    <button id="btn-adopt">ADOPTER</button>
+  </div>
+
+  <div id="game-screen" class="hidden">
+    <div class="header">
+      <div style="flex-grow: 1; text-align: left; padding-right: 15px;">
+        <div id="pet-name-display">NaviPet</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 8px;">
+          <div id="level-display">Niv. 1</div>
+          <div style="font-size: 8px;">XP</div>
+        </div>
+        <div style="background: #bdc3c7; height: 5px; border-radius: 3px; overflow: hidden; margin-top: 3px; border: 1px solid var(--border-color);">
+          <div id="bar-xp" style="height: 100%; width: 0%; background-color: #9b59b6; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+      <div style="text-align: right; min-width: 65px;">
+        <div style="margin-bottom: 5px;">🪙 <span id="coins-display">0</span></div>
+        <div style="font-size: 8px; color:var(--border-color);">DevCoins</div>
+      </div>
+    </div>
+
+    <div id="screen-area">
+      <div id="avatar" class="avatar anim-idle">🥚</div>
+      <div id="status-message"></div>
+    </div>
+
+    <div class="stats-panel">
+      <div class="stat-row">
+        <span class="stat-label">Faim</span>
+        <div class="bar-container"><div id="bar-faim" class="bar-fill" style="width: 80%; background-color: #2ecc71;"></div></div>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Joie</span>
+        <div class="bar-container"><div id="bar-joie" class="bar-fill" style="width: 80%; background-color: #f1c40f;"></div></div>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Énergie</span>
+        <div class="bar-container"><div id="bar-energie" class="bar-fill" style="width: 100%; background-color: #3498db;"></div></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="btn-work" class="action-btn">💻<br>Coder</button>
+      <button id="btn-feed" class="action-btn">🍎<br>Nourrir</button>
+      <button id="btn-play" class="action-btn">⚽<br>Jouer</button>
+      <button id="btn-sleep" class="action-btn">🛏️<br>Dormir</button>
+      <button id="btn-arcade" class="action-btn arcade">🎮<br>Arcade</button>
+      <button id="btn-reset" class="action-btn danger">🗑️<br>Reset</button>
+    </div>
+  </div>
+
+  <!-- ECRAN ARCADE MINI-JEU -->
+  <div id="arcade-screen" class="hidden" style="display: flex; flex-direction: column; min-height: 480px; padding-top: 20px;">
+    <h2 style="color:#9b59b6; margin-top:0; font-size:16px;">🕹️ Chasse aux Bugs</h2>
+    <p style="font-size: 8px; margin-bottom: 10px;">Écrase les bugs (🐛) pour gagner des DevCoins !</p>
+    
+    <div style="display:flex; justify-content:space-between; padding:0 20px; font-size:10px; margin-bottom: 5px;">
+      <span>Temps : <span id="mg-timer" style="color:#e74c3c;">15</span>s</span>
+      <span>Score : <span id="mg-score" style="color:#f1c40f;">0</span></span>
+    </div>
+    
+    <div id="mg-area" style="position:relative; height:260px; background-color:#2c3e50; margin:0 15px 15px 15px; border-radius:10px; overflow:hidden; border: 3px solid var(--border-color); cursor:crosshair;">
+      <!-- Les bugs apparaissent ici -->
+    </div>
+    
+    <button id="btn-mg-quit" class="action-btn danger" style="width:80%; margin:0 auto; padding:15px; font-size:12px;">Quitter</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
