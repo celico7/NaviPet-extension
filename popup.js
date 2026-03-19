@@ -17,11 +17,11 @@
   const MAX_STAT = 100;
 
   const SHOP_ITEMS = [
-      { id: 'bg-default', name: 'Pièce Simple', price: 0, icon: '🏠' },
-      { id: 'bg-forest', name: 'Forêt Magique', price: 50, icon: '🌲' },
-      { id: 'bg-beach', name: 'Plage Ensoleillée', price: 100, icon: '🏖️' },
-      { id: 'bg-hacker', name: 'Bureau Hacker', price: 150, icon: '💻' },
-      { id: 'bg-space', name: 'Station Spatiale', price: 300, icon: '🚀' }
+      { id: 'bg-default', name: 'Pièce Simple', price: 0, icon: '🏠', extraHtml: '' },
+      { id: 'bg-forest', name: 'Forêt Magique', price: 50, icon: '🌲', extraHtml: '<div style="position:absolute; bottom:5px; left:10px; font-size:24px; pointer-events:none;">🍄</div><div style="position:absolute; bottom:5px; right:15px; font-size:32px; pointer-events:none;">🏕️</div><div style="position:absolute; top:10px; right:30px; font-size:20px; pointer-events:none; opacity:0.7;">☁️</div>' },
+      { id: 'bg-beach', name: 'Plage Ensoleillée', price: 100, icon: '🏖️', extraHtml: '<div style="position:absolute; top:10px; right:10px; font-size:32px; pointer-events:none;">☀️</div><div style="position:absolute; bottom:5px; left:20px; font-size:28px; pointer-events:none;">🐚</div><div style="position:absolute; bottom:5px; right:20px; font-size:24px; pointer-events:none;">🦀</div>' },
+      { id: 'bg-hacker', name: 'Bureau Hacker', price: 150, icon: '💻', extraHtml: '<div style="position:absolute; top:50%; left:5px; font-size:24px; pointer-events:none;">🖥️</div><div style="position:absolute; bottom:5px; right:10px; font-size:20px; pointer-events:none;">☕</div><div style="position:absolute; top:10px; left:20px; color:#2ecc71; font-size:10px; font-family:monospace; pointer-events:none;">>_ hello_world<br>>_ hack.sh</div>' },
+      { id: 'bg-space', name: 'Station Spatiale', price: 300, icon: '🚀', extraHtml: '<div style="position:absolute; top:15px; left:15px; font-size:24px; pointer-events:none; animation: bob 4s infinite;">🛸</div><div style="position:absolute; bottom:20px; right:20px; font-size:32px; pointer-events:none;">🪐</div><div style="position:absolute; top:30px; right:40px; font-size:12px; pointer-events:none; color: yellow;">⭐</div><div style="position:absolute; top:50px; left:60px; font-size:8px; pointer-events:none; color: white;">⭐</div>' }
     ];
 
   const defaultState = {
@@ -99,6 +99,11 @@
             navi.energie = Math.min(MAX_STAT, navi.energie + (cycles * 15));        
             navi.faim = Math.max(0, navi.faim - (cycles * 2));
           } else {
+              navi.xp = (navi.xp || 0) + (cycles * 2);
+              while (navi.xp >= XP_PER_LEVEL) {
+                navi.niveau++;
+                navi.xp -= XP_PER_LEVEL;
+              }
             navi.faim = Math.max(0, navi.faim - (cycles * DECAY_AMOUNT));
             navi.joie = Math.max(0, navi.joie - (cycles * DECAY_AMOUNT));
             navi.energie = Math.max(0, navi.energie - (cycles * 2));
@@ -202,6 +207,27 @@
 
   function updateUI() {
     screenArea.className = navi.currentBackground || 'bg-default';
+      const currentBgItem = SHOP_ITEMS.find(item => item.id === (navi.currentBackground || 'bg-default'));
+      
+      let overlay = document.getElementById('bg-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'bg-overlay';
+        overlay.style.position = 'absolute';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.zIndex = '1';
+        screenArea.insertBefore(overlay, screenArea.firstChild);
+      }
+      
+      if (currentBgItem && currentBgItem.extraHtml) {
+        overlay.innerHTML = currentBgItem.extraHtml;
+      } else {
+        overlay.innerHTML = '';
+      }
     updateBar(barFaim, navi.faim);
     updateBar(barJoie, navi.joie);
     updateBar(barEnergie, navi.energie);
@@ -524,6 +550,9 @@
   // Init
   loadData();
 });
+
+
+
 
 
 
