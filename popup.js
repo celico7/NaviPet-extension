@@ -2,9 +2,9 @@
   // --- DONNEES DES ESPECES ---
   const SPECIES_DATA = [
       { id: 'dragon', name: 'Dragon', emojis: ['🥚', '🦎', '🐉', '🐉', '🐉', '🐉'] },
-      { id: 'dog', name: 'Chien', emojis: ['🥚', '🐶', '🐕', '🐕', '🐕', '🐕'] },
-      { id: 'cat', name: 'Chat', emojis: ['🥚', '🐱', '🐈', '🐈', '🐈', '🐈'] },
-      { id: 'robot', name: 'Robot', emojis: ['📦', '🤖', '🤖', '🤖', '🤖', '🤖'] },
+      { id: 'dog', name: 'Chien', emojis: ['🐶', '🐕', '🐕', '🐕', '🐕', '🐕'] },
+      { id: 'cat', name: 'Chat', emojis: ['🐱', '🐈', '🐈', '🐈', '🐈', '🐈'] },
+      { id: 'robot', name: 'Robot', emojis: ['📦', '🤖', '👾', '👾', '👾', '👾'] },
       { id: 'plant', name: 'Plante', emojis: ['🌱', '🌿', '🪴', '🌳', '🌳', '🌸'] }
     ];
   let currentSpeciesIndex = 0;
@@ -524,6 +524,7 @@
   // Init
   loadData();
 });
+
 
 
 
