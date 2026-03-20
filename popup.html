@@ -12,10 +12,10 @@
       --border-color: #34495e;
     }
     body.theme-night {
-      --bg-color: #2c3e50;
+      --bg-color: #1a2634;
       --text-color: #ecf0f1;
-      --panel-bg: rgba(0, 0, 0, 0.8);
-      --border-color: #7f8c8d;
+      --panel-bg: rgba(10, 15, 25, 0.88);
+      --border-color: #5a7a9a;
     }
     body {
       width: 320px;
@@ -24,7 +24,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       text-align: center;
-      transition: background-color 1s ease;
+      transition: background-color 1s ease, color 0.5s ease;
       user-select: none;
     }
     .hidden { display: none !important; }
@@ -41,40 +41,70 @@
     .slider-container { display:flex; align-items:center; justify-content:center; gap:15px; margin:20px 0; }
     .slider-btn { background:var(--panel-bg); border:2px solid var(--border-color); color:var(--text-color); font-family:inherit; padding:10px; cursor:pointer; border-radius:5px; font-size:16px; }
     .slider-btn:hover { background:#f1c40f; }
-    .name-input { font-family:inherit; padding:10px; margin-bottom:20px; width:80%; border:2px solid var(--border-color); border-radius:5px; text-align:center; font-size:10px; }
+    .name-input { font-family:inherit; padding:10px; margin-bottom:20px; width:80%; border:2px solid var(--border-color); border-radius:5px; text-align:center; font-size:10px; background:var(--panel-bg); color:var(--text-color); }
     #btn-adopt { background-color:#2ecc71; color:white; border:2px solid #27ae60; padding:15px; width:100%; font-family:inherit; font-size:12px; cursor:pointer; border-radius:8px; }
     #btn-adopt:hover { background-color:#27ae60; }
 
     /* ===== GAME SCREEN ===== */
     #game-screen { display:flex; flex-direction:column; min-height:480px; }
     .header { background-color:var(--panel-bg); padding:10px; border-bottom:2px solid var(--border-color); display:flex; justify-content:space-between; font-size:10px; color:var(--text-color); }
-    
+
+    /* Zone centrale avec le pet */
     #screen-area {
-      height:180px; position:relative; display:flex; justify-content:center;
-      align-items:center; flex-direction:column; cursor:pointer; overflow:hidden;
+      height: 185px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    /* Aura Mood Ring : calque de couleur qui change selon les onglets */
+    #mood-aura {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 2;
+      transition: box-shadow 1.5s ease;
+      border-radius: 0;
     }
 
-    /* Avatar + Accessoire superposé */
+    /* Avatar + Accessoire */
     .avatar-wrapper { position:relative; display:inline-flex; justify-content:center; align-items:flex-start; z-index:10; }
     .avatar { font-size:64px; display:inline-block; filter:drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
     #accessory-layer {
-      position:absolute; top:-20px; left:50%; transform:translateX(-50%);
-      font-size:28px; pointer-events:none; z-index:11; line-height:1;
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      pointer-events: none;
+      z-index: 11;
+      line-height: 1;
+    }
+    #shiny-badge {
+      position: absolute;
+      top: -5px;
+      right: -15px;
+      font-size: 14px;
+      z-index: 12;
+      animation: shinyPulse 1.5s infinite;
     }
 
-    #status-message { margin-top:10px; font-size:10px; height:10px; z-index:10; color:var(--text-color); }
+    #status-message { margin-top:10px; font-size:10px; height:12px; z-index:10; color:var(--text-color); min-width:200px; }
     #pet-name-display { font-size:14px; color:#e67e22; margin-bottom:5px; }
-    
+
     .stats-panel { background-color:var(--panel-bg); padding:10px; border-top:2px solid var(--border-color); }
     .stat-row { display:flex; align-items:center; margin-bottom:8px; font-size:9px; color:var(--text-color); }
     .stat-label { width:60px; text-align:left; }
     .bar-container { flex-grow:1; background-color:rgba(0,0,0,0.2); height:10px; border-radius:5px; overflow:hidden; margin:0 10px; border:1px solid var(--border-color); }
     .bar-fill { height:100%; transition:width 0.3s ease, background-color 0.3s ease; }
     .bar-danger { background-color:#e74c3c !important; }
-    
+
     .controls { display:grid; grid-template-columns:1fr 1fr; gap:5px; padding:10px; background-color:var(--panel-bg); }
     .action-btn { background-color:var(--bg-color); border:2px solid var(--border-color); border-radius:5px; padding:10px; font-family:inherit; font-size:9px; cursor:pointer; transition:transform 0.1s; display:flex; flex-direction:column; align-items:center; gap:5px; color:var(--text-color); }
-    .action-btn:hover { filter:brightness(1.1); transform:translateY(-2px); }
+    .action-btn:hover { filter:brightness(1.15); transform:translateY(-2px); }
     .action-btn:active { transform:translateY(0); }
     .action-btn.arcade { background-color:#a29bfe; color:white; border-color:#6c5ce7; }
     .action-btn.arcade:hover { background-color:#6c5ce7; }
@@ -83,50 +113,51 @@
 
     /* ===== BOUTIQUE ===== */
     #shop-screen { display:flex; flex-direction:column; min-height:480px; padding-top:20px; }
-
     .shop-tabs { display:flex; gap:5px; margin:0 15px 10px 15px; }
     .shop-tab { flex:1; padding:8px 4px; font-family:inherit; font-size:7px; cursor:pointer; border:2px solid var(--border-color); border-radius:5px; background:var(--panel-bg); color:var(--text-color); }
     .shop-tab.tab-active { background:#f1c40f; color:#2c3e50; border-color:#f39c12; }
-    .shop-tab:hover { filter:brightness(1.1); }
-
     #shop-items { flex-grow:1; display:flex; flex-direction:column; gap:8px; padding:0 15px; overflow-y:auto; margin-bottom:10px; max-height:330px; }
 
     /* ===== ARCADE ===== */
-    #arcade-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; }
+    #arcade-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; background:linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); }
     #arcade-menu { width:100%; }
-    .arcade-choice { display:flex; flex-direction:column; gap:10px; padding:0 20px; margin-top:15px; }
-    .arcade-game-btn { background:var(--panel-bg); border:3px solid var(--border-color); border-radius:10px; padding:15px; font-family:inherit; font-size:10px; cursor:pointer; color:var(--text-color); }
-    .arcade-game-btn:hover { background:#a29bfe; color:white; border-color:#6c5ce7; }
-    
+    .arcade-choice { display:flex; flex-direction:column; gap:10px; padding:0 20px; margin-top:10px; }
+    .arcade-game-btn { background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.2); border-radius:10px; padding:14px; font-family:inherit; font-size:9px; cursor:pointer; color:white; transition:all 0.2s; }
+    .arcade-game-btn:hover { background:rgba(162,155,254,0.5); border-color:#a29bfe; transform:translateY(-2px); }
     #bug-game-area { width:100%; }
-    #mg-area { position:relative; height:220px; background-color:#2c3e50; margin:0 15px 10px 15px; border-radius:10px; overflow:hidden; border:3px solid var(--border-color); cursor:crosshair; }
+    #mg-area { position:relative; height:220px; background-color:#0d1117; margin:0 15px 10px 15px; border-radius:10px; overflow:hidden; border:2px solid #30363d; cursor:crosshair; }
 
-    /* ===== PIERRE FEUILLE CISEAUX ===== */
-    #pfc-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; }
-    .pfc-choice-btn { font-size: 30px; margin: 10px; padding: 10px; background:var(--panel-bg); border:2px solid var(--border-color); border-radius:10px; cursor:pointer; transition:transform 0.1s; display:inline-block; }
-    .pfc-choice-btn:hover { transform:scale(1.1); background:#f1c40f; }
+    /* ===== PFC ===== */
+    #pfc-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; background:linear-gradient(135deg,#e67e22,#c0392b); }
+    .pfc-choice-btn { font-size:30px; margin:5px; padding:10px 14px; background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.4); border-radius:10px; cursor:pointer; transition:transform 0.1s; display:inline-block; }
+    .pfc-choice-btn:hover { transform:scale(1.15); background:rgba(255,255,255,0.35); }
 
     /* ===== MEMORY ===== */
-    #memory-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; }
+    #memory-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; background:linear-gradient(135deg,#2c3e50,#1a3a5c); }
     #memory-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; padding:0 15px; margin:10px 0; }
-    .memory-card { width:60px; height:60px; background:var(--panel-bg); border:2px solid var(--border-color); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:28px; cursor:pointer; transition:transform 0.15s; }
-    .memory-card:hover { transform:scale(1.05); }
+    .memory-card { width:58px; height:58px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; transition:transform 0.15s, background 0.2s; }
+    .memory-card:hover { transform:scale(1.07); background:rgba(255,255,255,0.2); }
     .memory-card.flipped { border-color:#2ecc71; }
-    #memory-status { font-size:9px; color:white; margin:5px 0 10px 0; min-height:14px; }
+    #memory-status { font-size:9px; color:rgba(255,255,255,0.9); margin:5px 0 10px 0; min-height:14px; }
 
     /* ===== ANIMATIONS ===== */
     .particle { position:absolute; font-size:20px; pointer-events:none; animation:floatUp 1s ease-out forwards; z-index:15; }
-    @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1);} 100%{opacity:0;transform:translateY(-50px) scale(1.5);} }
-    @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
-    @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
-    @keyframes eat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
-    @keyframes sleep { 0%,100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(0.95) rotate(5deg);} }
+    @keyframes floatUp   { 0%{opacity:1;transform:translateY(0) scale(1);} 100%{opacity:0;transform:translateY(-55px) scale(1.5);} }
+    @keyframes bob       { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+    @keyframes shake     { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+    @keyframes eat       { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+    @keyframes sleep     { 0%,100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(0.95) rotate(5deg);} }
+    /* ✨ Animation spéciale Shiny */
+    @keyframes shinyPulse { 0%,100%{text-shadow:0 0 5px #fff, 0 0 10px #f1c40f;} 50%{text-shadow:0 0 15px #fff, 0 0 30px #f1c40f, 0 0 45px #e67e22;} }
+    @keyframes shinyBob  { 0%,100%{transform:translateY(0) rotate(-3deg);} 50%{transform:translateY(-12px) rotate(3deg);} }
     .anim-idle  { animation:bob 2s infinite ease-in-out; }
     .anim-shake { animation:shake 0.5s infinite; }
     .anim-eat   { animation:eat 0.5s ease; }
     .anim-sleep { animation:sleep 3s infinite ease-in-out; }
+    .anim-shiny { animation:shinyBob 1.8s infinite ease-in-out; filter:drop-shadow(0 0 8px gold) drop-shadow(0 0 15px #f1c40f); }
 
     /* ===== BACKGROUNDS ===== */
+    .screen-area-base { height:185px; position:relative; display:flex; justify-content:center; align-items:center; flex-direction:column; cursor:pointer; overflow:hidden; }
     .bg-default { background:transparent; }
     .bg-hacker  { background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); box-shadow:inset 0 0 10px #00ff00; }
     .bg-beach   { background:linear-gradient(to bottom,#87CEEB 0%,#87CEEB 60%,#eed690 60%,#e6ca7b 100%); }
@@ -139,7 +170,7 @@
   <!-- ======================== ONBOARDING ======================== -->
   <div id="onboarding-screen">
     <h2 style="color:#d35400;margin-top:0;">Adoption 🥚</h2>
-    <p style="font-size:10px;margin-bottom:20px;line-height:1.5;">Choisis et nomme<br>ton nouveau compagnon !</p>
+    <p style="font-size:9px;margin-bottom:20px;line-height:1.6;">Choisis et nomme ton compagnon !<br><span style="color:#e67e22;font-size:7px;">✨ 1% de chance d'obtenir un Shiny !</span></p>
     <div class="slider-container">
       <button id="slide-left" class="slider-btn">◀</button>
       <div id="slider-avatar" class="avatar anim-idle">🥚</div>
@@ -155,25 +186,29 @@
     <div class="header">
       <div style="flex-grow:1;text-align:left;padding-right:15px;">
         <div id="pet-name-display">NaviPet</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;font-size:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:8px;margin-top:2px;">
           <div id="level-display">Niv. 1</div>
-          <div style="font-size:8px;">XP</div>
+          <span style="font-size:7px;opacity:0.7;">XP</span>
         </div>
         <div style="background:rgba(0,0,0,0.2);height:5px;border-radius:3px;overflow:hidden;margin-top:3px;">
           <div id="bar-xp" style="height:100%;width:0%;background-color:#9b59b6;transition:width 0.3s ease;"></div>
         </div>
       </div>
-      <div style="text-align:right;min-width:65px;">
-        <div style="margin-bottom:5px;">🪙 <span id="coins-display">0</span></div>
-        <div style="font-size:8px;color:var(--border-color);">DevCoins</div>
+      <div style="text-align:right;min-width:70px;">
+        <div style="margin-bottom:4px;">🪙 <span id="coins-display">0</span></div>
+        <div style="font-size:7px;opacity:0.7;">DevCoins</div>
       </div>
     </div>
 
-    <div id="screen-area">
-      <!-- L'avatar et son accessoire -->
+    <!-- Zone principale du pet -->
+    <div id="screen-area" class="bg-default screen-area-base">
+      <!-- Calque Mood Ring (aura des onglets) -->
+      <div id="mood-aura"></div>
+      <!-- Avatar + accessoire -->
       <div class="avatar-wrapper">
         <div id="avatar" class="avatar anim-idle">🥚</div>
         <div id="accessory-layer" style="display:none;"></div>
+        <span id="shiny-badge" style="display:none;">✨</span>
       </div>
       <div id="status-message"></div>
     </div>
@@ -206,82 +241,81 @@
   <!-- ======================== BOUTIQUE ======================== -->
   <div id="shop-screen" class="hidden" style="display:flex;flex-direction:column;min-height:480px;padding-top:20px;">
     <h2 style="color:#f1c40f;margin-top:0;font-size:14px;">🛒 Boutique</h2>
-    <div style="font-size:9px;margin-bottom:10px;color:var(--text-color);">Solde : <span id="shop-coins" style="color:#f1c40f;">0</span> 🪙</div>
-
-    <!-- Onglets -->
+    <div style="font-size:9px;margin-bottom:10px;color:var(--text-color);">Solde : <span id="shop-coins" style="color:#f1c40f;font-size:12px;">0</span> 🪙</div>
     <div class="shop-tabs">
       <button id="shop-tab-bgs"  class="shop-tab tab-active">🏞️ Décors</button>
       <button id="shop-tab-food" class="shop-tab">🍕 Nourriture</button>
       <button id="shop-tab-acc"  class="shop-tab">🎩 Accessoires</button>
     </div>
-
     <div id="shop-items"></div>
-
-    <button id="btn-shop-quit" class="action-btn danger" style="width:80%;margin:0 auto 15px auto;padding:12px;font-size:11px;">← Retour</button>
+    <button id="btn-shop-quit" class="action-btn danger" style="width:80%;margin:0 auto 15px;padding:12px;font-size:11px;">← Retour</button>
   </div>
 
   <!-- ======================== ARCADE ======================== -->
-  <div id="arcade-screen" class="hidden" style="display:flex;flex-direction:column;min-height:480px;align-items:center;padding-top:20px;">
-    
-    <!-- Menu choix jeu -->
-    <div id="arcade-menu">
-      <h2 style="color:white;margin-top:0;font-size:14px;">🕹️ Arcade</h2>
-      <p style="font-size:8px;color:rgba(255,255,255,0.8);margin-bottom:5px;">Choisis ton jeu !</p>
+  <div id="arcade-screen" class="hidden">
+
+    <!-- Menu principal de l'arcade -->
+    <div id="arcade-menu" style="width:100%;">
+      <h2 style="color:white;margin:20px 0 5px;font-size:14px;">🕹️ Arcade</h2>
+      <p style="font-size:8px;color:rgba(255,255,255,0.6);margin-bottom:0;">Choisis ton jeu !</p>
       <div class="arcade-choice">
         <button id="btn-start-bugs" class="arcade-game-btn">
-          🐛 Chasse aux Bugs<br>
-          <span style="font-size:7px;opacity:0.7;">Écrase les bugs en 15 sec !</span>
+          🐛 Chasse aux Bugs
+          <br><span style="font-size:7px;opacity:0.6;">Écrase les bugs en 15 sec ! (🦟 = 3 pts)</span>
         </button>
         <button id="btn-start-memory" class="arcade-game-btn">
-          🧠 Memory<br>
-          <span style="font-size:7px;opacity:0.7;">Retrouve toutes les paires !</span>
+          🧠 Memory
+          <br><span style="font-size:7px;opacity:0.6;">Retrouve toutes les paires ! +25 🪙</span>
         </button>
         <button id="btn-start-pfc" class="arcade-game-btn">
-          ✂️ Pierre-Feuille-Ciseaux<br>
-          <span style="font-size:7px;opacity:0.7;">Défie ton pet !</span>
+          ✂️ Pierre-Feuille-Ciseaux
+          <br><span style="font-size:7px;opacity:0.6;">Défie ton pet ! Gagne +10 🪙</span>
         </button>
       </div>
-      <button id="btn-mg-quit" class="action-btn danger" style="width:80%;margin:20px auto 0;padding:12px;font-size:11px;">← Retour</button>
+      <button id="btn-mg-quit" class="action-btn danger" style="width:80%;margin:15px auto 20px;padding:12px;font-size:11px;">← Retour au jeu</button>
     </div>
 
     <!-- Zone Chasse aux Bugs -->
     <div id="bug-game-area" class="hidden" style="width:100%;">
-      <h2 style="color:white;margin-top:0;font-size:13px;">🐛 Chasse aux Bugs</h2>
-      <div style="display:flex;justify-content:space-between;padding:0 20px;font-size:10px;margin-bottom:5px;color:white;">
-        <span>⏱ <span id="mg-timer">15</span>s</span>
-        <span>Score : <span id="mg-score" style="color:#f1c40f;">0</span></span>
+      <h2 style="color:white;margin:15px 0 5px;font-size:12px;">🐛 Chasse aux Bugs</h2>
+      <div style="display:flex;justify-content:space-between;padding:0 20px;font-size:9px;margin-bottom:8px;color:rgba(255,255,255,0.8);">
+        <span>⏱ <span id="mg-timer" style="color:#e74c3c;font-size:11px;">15</span>s</span>
+        <span>Score : <span id="mg-score" style="color:#f1c40f;font-size:11px;">0</span></span>
       </div>
       <div id="mg-area"></div>
     </div>
   </div>
 
   <!-- ======================== PIERRE FEUILLE CISEAUX ======================== -->
-  <div id="pfc-screen" class="hidden" style="display:flex;flex-direction:column;min-height:480px;align-items:center;padding-top:20px;background:linear-gradient(135deg,#e67e22,#d35400);">
-    <h2 style="color:white;margin-top:20px;font-size:13px;">✂️ Duel !</h2>
-    <div id="pfc-status" style="font-size:10px;color:white;margin:10px 0;">Choisis ton arme 🥷</div>
-    <div style="font-size:35px; margin:20px 0;">
-       <span id="pfc-player-emoji">❓</span> ⚡ <span id="pfc-pet-emoji">❓</span>
+  <div id="pfc-screen" class="hidden">
+    <h2 style="color:white;margin:20px 0 5px;font-size:13px;">✂️ Duel !</h2>
+    <div id="pfc-status" style="font-size:9px;color:rgba(255,255,255,0.9);margin:8px 0;">Choisis ton arme 🥷</div>
+    <div style="font-size:40px;margin:15px 0;display:flex;align-items:center;gap:15px;justify-content:center;">
+      <span id="pfc-player-emoji">❓</span>
+      <span style="font-size:20px;opacity:0.7;">⚡</span>
+      <span id="pfc-pet-emoji">❓</span>
     </div>
-    <div id="pfc-result" style="color:#f1c40f;font-size:12px;min-height:15px;margin-bottom:20px;"></div>
-    <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;">
-      <button class="pfc-choice-btn" style="font-size:24px;background:var(--panel-bg);border:2px solid var(--border-color);border-radius:10px;padding:10px;cursor:pointer;" data-choice="pierre">🪨</button>
-      <button class="pfc-choice-btn" style="font-size:24px;background:var(--panel-bg);border:2px solid var(--border-color);border-radius:10px;padding:10px;cursor:pointer;" data-choice="feuille">📄</button>
-      <button class="pfc-choice-btn" style="font-size:24px;background:var(--panel-bg);border:2px solid var(--border-color);border-radius:10px;padding:10px;cursor:pointer;" data-choice="ciseaux">✂️</button>
+    <div id="pfc-result" style="color:#f1c40f;font-size:11px;min-height:18px;margin-bottom:15px;"></div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button class="pfc-choice-btn" data-choice="pierre">🪨</button>
+      <button class="pfc-choice-btn" data-choice="feuille">📄</button>
+      <button class="pfc-choice-btn" data-choice="ciseaux">✂️</button>
     </div>
-    <button id="btn-pfc-quit" class="action-btn danger" style="width:80%;margin:50px auto 10px;padding:12px;font-size:11px;">← Retour</button>
+    <p style="font-size:7px;color:rgba(255,255,255,0.5);margin:10px 0;">Victoire = +10 🪙 | Tu peux jouer autant de fois que tu veux !</p>
+    <button id="btn-pfc-quit" class="action-btn danger" style="width:80%;margin:10px auto;padding:12px;font-size:11px;">← Retour Arcade</button>
   </div>
 
   <!-- ======================== MEMORY ======================== -->
-  <div id="memory-screen" class="hidden" style="background:linear-gradient(135deg,#2c3e50,#3498db);">
-    <h2 style="color:white;margin-top:20px;font-size:13px;">🧠 Memory</h2>
-    <div id="memory-status">Retourne les paires ! 🧠</div>
+  <div id="memory-screen" class="hidden">
+    <h2 style="color:white;margin:20px 0 5px;font-size:13px;">🧠 Memory</h2>
+    <div id="memory-status"></div>
     <div id="memory-grid"></div>
-    <button id="btn-memory-quit" class="action-btn danger" style="width:80%;margin:0 auto 20px;padding:12px;font-size:11px;">← Retour</button>
+    <button id="btn-memory-quit" class="action-btn danger" style="width:80%;margin:10px auto 20px;padding:12px;font-size:11px;">← Retour Arcade</button>
   </div>
 
   <script src="popup.js"></script>
-  <div style="text-align:center;padding-bottom:10px;background:var(--panel-bg);">
-    <a id="btn-reset" href="#" style="color:#e74c3c;font-size:8px;text-decoration:none;">[Danger: Reset Sauvegarde]</a>
+  <div style="text-align:center;padding:8px 0;background:var(--panel-bg);border-top:1px solid var(--border-color);">
+    <a id="btn-reset" href="#" style="color:#e74c3c;font-size:7px;text-decoration:none;opacity:0.6;">[Danger: Reset Sauvegarde]</a>
   </div>
 </body>
 </html>

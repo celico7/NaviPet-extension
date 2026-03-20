@@ -146,7 +146,8 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
           const reaction = reactions[Math.floor(Math.random() * reactions.length)];
           // Envoyer la réaction à la popup si elle est ouverte
           chrome.runtime.sendMessage({ type: 'TAB_REACTION', message: reaction }).catch(() => {
-            // Popup fermée, c'est normal
+            // Popup fermée : on sauvegarde la réaction pour la prochaine ouverture !
+            chrome.storage.local.set({ pendingReaction: reaction });
           });
           lastTabReaction = now;
           break;

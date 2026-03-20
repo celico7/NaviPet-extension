@@ -4,42 +4,42 @@ Ce fichier sert à conserver toutes nos petites folies et grandes idées de fonc
 Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était arrêtés et ce qu'il reste à construire !
 
 ## 🎮 Mini-Jeux (Arcade)
-- [x] **Chasse aux Bugs :** Cliquer sur des `🐛` pour gagner des points.
+- [x] **Chasse aux Bugs :** Cliquer sur des `🐛` pour gagner des points. (🦟 = bug rare = 3 pts !)
+- [x] **Memory :** Retrouver toutes les paires d'emojis pour gagner +25 🪙 et +20 Joie.
+- [x] **Pierre-Feuille-Ciseaux ✂️ :** Parie quelques pièces et défie ton pet en duel direct !
 - [ ] **Saut d'obstacles (Dino-like) :** Le pet doit sauter au-dessus d'obstacles et attraper des pièces.
-- [ ] **Memory / Simon :** Retenir une séquence d'emojis pour booster la joie.
 - [ ] **Cookie Clicker ou Flappy Pet :** Des classiques adaptés avec notre emoji !
-- [ ] **Pierre-Feuille-Ciseaux ✂️ :** Parie quelques petites pièces et défie ton pet en duel direct depuis la popup. Super simple à implémenter, addictif, et ça crée une vraie interaction !
 
 ## 🛍️ Boutique & Personnalisation
 - [x] **Fonds d'écran (Pièces) :** Acheter et équiper divers décors (Plage 🏖️, Espace 🚀, Hacker 💻, etc.).
-- [ ] **Accessoires & Chapeaux 🎩 :** Avoir des calques d'emojis superposés (ex: rajouter des lunettes de soleil 🕶️ au dessus de notre pet `🐶`).
-- [ ] **Nourriture Premium :** Acheter des plats spéciaux (Pizza 🍕, Sushi 🍣) qui donnent des bonus temporaires ou rapportent plus de satiété.
+- [x] **Accessoires & Chapeaux 🎩 :** Calques d'emojis superposés (lunettes 🕶️, couronne 👑, chapeau 🎩, etc.).
+- [x] **Nourriture Premium :** Acheter des plats spéciaux (Pizza 🍕, Sushi 🍣, Ramen 🍜, Café ☕) avec effets variés.
 
 ## 🧬 Évolution & Espèces
 - [x] Animations de naissance (L'œuf éclot).
 - [x] 5 Familles actuelles : Dragon, Chien, Chat, Robot, Plante.
-- [ ] **Fins alternatives / Secrets :** Si on nourrit le pet "trop" d'un certain aliment, il évolue en un type secret (ex: un dragon muté, un cyber-chien).
-- [ ] **Système d'âge / Héritage :** Quand un pet arrive au niveau MAx absolu (ex: 100), il part à la retraite et laisse un œuf magique avec des bonus de départ (Prestige).
+- [x] **Système de Rareté (Shiny) ✨ :** À l'adoption, 1% de chance d'avoir un pet brillant avec animation spéciale et emoji doré !
+- [ ] **Fins alternatives / Secrets :** Si on nourrit le pet "trop" d'un certain aliment, il évolue en un type secret.
+- [ ] **Système d'âge / Héritage :** Quand un pet arrive au niveau max absolu (ex: 100), il part à la retraite et laisse un œuf magique avec des bonus de départ (Prestige).
 
 ## 🖥️ Interactions & UI
-- [ ] **Extensions de notification :** L'extension envoie une notification Windows/Mac "Ton NaviPet a très faim ! 🍗" quand les stats sont critiques, au lieu de juste attendre qu'on l'ouvre.
+- [x] **Notifications OS :** L'extension envoie une notification "Ton NaviPet a très faim ! 🍗" via background.js + chrome.alarms.
+- [x] **Réaction aux Onglets 🐾 :** Le pet commente les sites visités (GitHub, YouTube, Reddit, Claude.ai, etc.).
+- [x] **Humeur des Onglets (Mood Ring) 🌈 :** L'aura du pet change de couleur selon le nombre d'onglets ouverts (bleu zen → rouge chaos).
+- [x] **Synchronisation Mode Nuit 💤 :** Le pet met automatiquement son bonnet de nuit 🌙 après 19h !
 - [ ] **Effets météo animés :** Selon la lune ou le stade du jour, de la pluie 🌧️ ou des étoiles filantes ✨.
-- [ ] **Curseur interactif :** Remplacer le curseur par un pointeur spécial (ex: une main 🖐️) quand on survole l'espace de jeu.
-
-chrome.idle — détecter si l'utilisateur est AFK et mettre le pet en veille automatique
-Content Script — faire apparaître de la nourriture cliquable directement sur les pages web visitées
-Système de Prestige — quand niveau 25 atteint, le pet "prend sa retraite" et laisse un œuf bonus avec +20 stats de départ
-Météo réelle — via l'API météo open-source pour afficher pluie/soleil dans le background selon la vraie météo locale
+- [ ] **Curseur interactif :** Remplacer le curseur par un pointeur spécial quand on survole l'espace de jeu.
 
 ## 📈 Productivité & Quêtes
-- [ ] **Navi-Défis Journaliers 📜 :** Des objectifs type "Ne pas aller sur les réseaux sociaux pendant 2h" ou "Cliquer 100 fois" pour gagner +50 DevCoins.
-- [ ] **Mode Focus (Pomodoro) 🍅 :** Le pet s'endort et gagne un bonus d'énergie/XP si l'utilisateur respecte un timer de 25 minutes sans aller sur des sites distrayants.
-- [ ] **Boss de Distraction 👾 :** Complémente le Mode Pomodoro. Pendant ta concentration, un monstre "Procrastination" apparaît au-dessus du pet. Si tu craques et vas sur Twitter/YouTube, le monstre attaque ! Il faut tenir pour le vaincre.
-- [ ] **Système de Rareté (Shiny) ✨ :** À l'éclosion, 1% de chance d'avoir un pet brillant ou muté permanent !
-## 🌙 Ambiance & Contexte OS
-- [ ] **Synchronisation Dark Mode 💤 :** Le pet met automatiquement son pyjama ou un bonnet de nuit quand le mode sombre du navigateur ou de l'OS est activé.
-- [ ] **Humeur des Onglets (Mood Ring) 🌈 :** L'aura (background) du pet change de couleur si on a plus de 20 onglets ouverts (rouge stress) ou très peu (bleu zen).
-- [ ] **Réaction aux Onglets 🐾 :** Le pet devient confus ou donne le tournis si l'utilisateur ferme 5 onglets d'un coup, ou sautille de joie quand on ouvre une page de dev (GitHub, StackOverflow).
+- [ ] **Navi-Défis Journaliers 📜 :** Des objectifs type "Cliquer 100 fois" ou "Travailler 5 fois" pour gagner +50 DevCoins.
+- [ ] **Mode Focus (Pomodoro) 🍅 :** Le pet gagne un bonus d'XP si l'utilisateur respecte un timer de 25 minutes.
+- [ ] **Boss de Distraction 👾 :** Pendant ta concentration, un monstre "Procrastination" apparaît. Si tu vas sur Twitter/YouTube, il attaque !
+
+## 🌙 Idées futures
+- [ ] **Content Script :** Faire apparaître de la nourriture cliquable directement sur les pages web visitées.
+- [ ] **Système de Prestige :** Quand niveau 25 atteint, le pet prend sa retraite et laisse un œuf bonus avec +20 stats de départ.
+- [ ] **Météo réelle :** Via l'API météo open-source pour afficher pluie/soleil dans le background selon la météo locale.
+- [ ] **chrome.idle :** Détecter si l'utilisateur est AFK et mettre le pet en veille automatique.
 
 ---
 *N'hésite pas à rajouter ici toutes les idées qui te viennent à l'esprit pendant le dev !*
