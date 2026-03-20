@@ -8,6 +8,7 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [ ] **Saut d'obstacles (Dino-like) :** Le pet doit sauter au-dessus d'obstacles et attraper des pièces.
 - [ ] **Memory / Simon :** Retenir une séquence d'emojis pour booster la joie.
 - [ ] **Cookie Clicker ou Flappy Pet :** Des classiques adaptés avec notre emoji !
+- [ ] **Pierre-Feuille-Ciseaux ✂️ :** Parie quelques petites pièces et défie ton pet en duel direct depuis la popup. Super simple à implémenter, addictif, et ça crée une vraie interaction !
 
 ## 🛍️ Boutique & Personnalisation
 - [x] **Fonds d'écran (Pièces) :** Acheter et équiper divers décors (Plage 🏖️, Espace 🚀, Hacker 💻, etc.).
@@ -33,9 +34,11 @@ Météo réelle — via l'API météo open-source pour afficher pluie/soleil dan
 ## 📈 Productivité & Quêtes
 - [ ] **Navi-Défis Journaliers 📜 :** Des objectifs type "Ne pas aller sur les réseaux sociaux pendant 2h" ou "Cliquer 100 fois" pour gagner +50 DevCoins.
 - [ ] **Mode Focus (Pomodoro) 🍅 :** Le pet s'endort et gagne un bonus d'énergie/XP si l'utilisateur respecte un timer de 25 minutes sans aller sur des sites distrayants.
+- [ ] **Boss de Distraction 👾 :** Complémente le Mode Pomodoro. Pendant ta concentration, un monstre "Procrastination" apparaît au-dessus du pet. Si tu craques et vas sur Twitter/YouTube, le monstre attaque ! Il faut tenir pour le vaincre.
 - [ ] **Système de Rareté (Shiny) ✨ :** À l'éclosion, 1% de chance d'avoir un pet brillant ou muté permanent !
 ## 🌙 Ambiance & Contexte OS
 - [ ] **Synchronisation Dark Mode 💤 :** Le pet met automatiquement son pyjama ou un bonnet de nuit quand le mode sombre du navigateur ou de l'OS est activé.
+- [ ] **Humeur des Onglets (Mood Ring) 🌈 :** L'aura (background) du pet change de couleur si on a plus de 20 onglets ouverts (rouge stress) ou très peu (bleu zen).
 - [ ] **Réaction aux Onglets 🐾 :** Le pet devient confus ou donne le tournis si l'utilisateur ferme 5 onglets d'un coup, ou sautille de joie quand on ouvre une page de dev (GitHub, StackOverflow).
 
 ---

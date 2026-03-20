@@ -139,6 +139,16 @@
   let memoryMatched       = 0;
   let memoryLocked        = false;
 
+  // Mini-jeu PFC
+  const pfcScreen         = document.getElementById('pfc-screen');
+  const btnStartPfc       = document.getElementById('btn-start-pfc');
+  const btnPfcQuit        = document.getElementById('btn-pfc-quit');
+  const pfcChoiceBtns     = document.querySelectorAll('.pfc-choice-btn');
+  const pfcStatus         = document.getElementById('pfc-status');
+  const pfcPlayerEmoji    = document.getElementById('pfc-player-emoji');
+  const pfcPetEmoji       = document.getElementById('pfc-pet-emoji');
+  const pfcResult         = document.getElementById('pfc-result');
+
   // ============================================================
   // --- INIT & SAUVEGARDE ---
   // ============================================================
@@ -187,7 +197,7 @@
   // --- GESTION DES ÉCRANS ---
   // ============================================================
   function hideAllScreens() {
-    [onboardingScreen, gameScreen, shopScreen, arcadeScreen, memoryScreen].forEach(s => {
+    [onboardingScreen, gameScreen, shopScreen, arcadeScreen, memoryScreen, pfcScreen].forEach(s => {
       if (s) s.classList.add('hidden');
     });
   }
@@ -570,10 +580,19 @@
 
   btnShop.addEventListener('click', () => openShop('bgs'));
   btnShopQuit.addEventListener('click', () => { hideAllScreens(); gameScreen.classList.remove('hidden'); updateUI(); });
+  
+  if (btnMgQuit) {
+    btnMgQuit.addEventListener('click', () => { hideAllScreens(); gameScreen.classList.remove('hidden'); updateUI(); });
+  }
 
   // ============================================================
   // --- MINI-JEU 1 : CHASSE AUX BUGS ---
   // ============================================================
+  const btnStartBugs = document.getElementById('btn-start-bugs');
+  const btnStartMemory = document.getElementById('btn-start-memory');
+  const bugGameArea = document.getElementById('bug-game-area');
+  const arcadeMenu = document.getElementById('arcade-menu');
+
   btnArcade.addEventListener('click', () => {
     if (navi.energie < 10) { showMessage('Trop fatigué...', '#e74c3c'); triggerAnimation('anim-shake'); return; }
     openArcadeMenu();
@@ -583,10 +602,20 @@
     hideAllScreens();
     arcadeScreen.classList.remove('hidden');
     // Montrer le menu choix mini-jeux
-    const arcadeMenu = document.getElementById('arcade-menu');
-    const bugGameArea = document.getElementById('bug-game-area');
     if (arcadeMenu) arcadeMenu.classList.remove('hidden');
     if (bugGameArea) bugGameArea.classList.add('hidden');
+  }
+
+  if (btnStartBugs) {
+    btnStartBugs.addEventListener('click', startBugGame);
+  }
+
+  if (btnStartMemory) {
+    btnStartMemory.addEventListener('click', startMemoryGame);
+  }
+
+  if (btnStartPfc) {
+    btnStartPfc.addEventListener('click', startPfcGame);
   }
 
   document.getElementById('btn-start-bugs')?.addEventListener('click', () => {
@@ -699,10 +728,75 @@
     memoryStatus.textContent = `🎉 Parfait ! +${coinsWon} 🪙 & +20 Joie !`;
     memoryStatus.style.color = '#f1c40f';
     navi.coins += coinsWon; navi.joie = Math.min(MAX_STAT, navi.joie + 20); navi.energie = Math.max(0, navi.energie - 15);
-    setTimeout(() => { hideAllScreens(); gameScreen.classList.remove('hidden'); saveData(); showMessage(`+${coinsWon} 🪙 !`, '#f1c40f'); }, 2500);
+    setTimeout(() => { hideAllScreens(); openArcadeMenu(); saveData(); showMessage(`+${coinsWon} 🪙 !`, '#f1c40f'); }, 2500);
   }
 
-  btnMemoryQuit?.addEventListener('click', () => { hideAllScreens(); gameScreen.classList.remove('hidden'); });
+  btnMemoryQuit?.addEventListener('click', () => { hideAllScreens(); openArcadeMenu(); });
+
+  // ============================================================
+  // --- MINI-JEU 3 : PIERRE FEUILLE CISEAUX ---
+  // ============================================================
+  function startPfcGame() {
+    hideAllScreens();
+    pfcScreen.classList.remove('hidden');
+    pfcPlayerEmoji.textContent = '❓';
+    pfcPetEmoji.textContent = '❓';
+    pfcResult.textContent = '';
+    pfcResult.style.color = '#f1c40f';
+  }
+
+  pfcChoiceBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const playerChoice = btn.getAttribute('data-choice');
+      playPfcMatch(playerChoice);
+    });
+  });
+
+  function playPfcMatch(playerChoice) {
+    if (navi.energie < 5) {
+      pfcResult.textContent = "Ton pet est trop fatigué !";
+      pfcResult.style.color = '#e74c3c';
+      triggerAnimation('anim-shake');
+      return;
+    }
+
+    const choices = ['pierre', 'feuille', 'ciseaux'];
+    const emojis = { pierre: '🪨', feuille: '📄', ciseaux: '✂️' };
+    const petChoice = choices[Math.floor(Math.random() * choices.length)];
+
+    pfcPlayerEmoji.textContent = emojis[playerChoice];
+    pfcPetEmoji.textContent = emojis[petChoice];
+
+    navi.energie -= 5;
+    navi.faim -= 2;
+
+    if (playerChoice === petChoice) {
+      pfcResult.textContent = "Égalité !";
+      pfcResult.style.color = '#bdc3c7';
+      navi.joie = Math.min(MAX_STAT, navi.joie + 5);
+      spawnParticle('⚖️');
+    } else if (
+      (playerChoice === 'pierre' && petChoice === 'ciseaux') ||
+      (playerChoice === 'feuille' && petChoice === 'pierre') ||
+      (playerChoice === 'ciseaux' && petChoice === 'feuille')
+    ) {
+      pfcResult.textContent = "Victoire ! +10 DevCoins 🪙";
+      pfcResult.style.color = '#2ecc71';
+      navi.coins += 10;
+      navi.joie = Math.min(MAX_STAT, navi.joie + 15);
+      navi.xp += 5;
+      spawnParticle('🎉');
+    } else {
+      pfcResult.textContent = "Défaite ! Mince...";
+      pfcResult.style.color = '#e74c3c';
+      navi.joie = Math.max(0, navi.joie - 5);
+      spawnParticle('😿');
+    }
+
+    saveData();
+  }
+
+  btnPfcQuit?.addEventListener('click', () => { hideAllScreens(); openArcadeMenu(); });
 
   // ============================================================
   // --- RÉACTIONS AUX ONGLETS (via background.js) ---
