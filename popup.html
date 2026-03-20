@@ -228,13 +228,27 @@
       </div>
     </div>
 
-    <div class="controls">
+    <div class="controls" id="main-controls">
       <button id="btn-work"  class="action-btn">💻<br>Coder</button>
       <button id="btn-feed"  class="action-btn">🍎<br>Nourrir</button>
       <button id="btn-play"  class="action-btn">⚽<br>Jouer</button>
       <button id="btn-sleep" class="action-btn">🛏️<br>Dormir</button>
       <button id="btn-arcade" class="action-btn arcade">🎮<br>Arcade</button>
       <button id="btn-shop"  class="action-btn" style="background-color:#f1c40f;color:#2c3e50;border-color:#f39c12;">🛒<br>Boutique</button>
+    </div>
+
+    <!-- Zone Inventaire Nourriture (remplace les boutons) -->
+    <div id="inventory-panel" class="hidden" style="padding:10px; background-color:var(--panel-bg);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:10px; color:var(--text-color);">🎒 Inventaire</span>
+        <button id="btn-close-inventory" class="action-btn danger" style="padding:5px; font-size:8px;">X</button>
+      </div>
+      <div id="inventory-items" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:5px; max-height:80px; overflow-y:auto;">
+        <!-- Items générés ici -->
+      </div>
+      <div id="inventory-empty" style="font-size:8px; color:var(--border-color); text-align:center; display:none; padding:10px 0;">
+        Vide ! Va à la boutique 🛒
+      </div>
     </div>
   </div>
 

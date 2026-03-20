@@ -119,7 +119,7 @@ const TAB_REACTIONS = {
   'reddit.com': ['🕳️ Le trou noir du temps...', 'r/procrastination en direct 😅', 'Juste un subreddit... juste un... 👀'],
   'twitch.tv': ['Stream au lieu de bosser ! 🎮', 'PogChamp !', 'Le vrai gaming...'],
   'chat.openai.com': ['Un autre IA ? 😤 Jaloux !', 'Tu me trompes ? 😢', 'Je vaux mieux que GPT !'],
-  'claude.ai': ['C\'est moi ! Coucou ! 👋', 'Tu parles à mon grand frère 😄', 'NaviPet chez Anthropic ! 🤖'],
+  'claude.ai': ['C\'est moi ! Coucou ! 👋', 'Tu parles à claude ce fou', 'NaviPet chez Anthropic ! 🤖'],
   'leetcode.com': ['Bon courage... 🧠', 'En mode interview 💼', 'Two Sum encore ? 😴'],
   'figma.com': ['Pixel perfect ! 🎨', 'Design mode ON 🖌️', 'Les designers aussi ont des bugs 🐛'],
   'notion.so': ['Productivity mode 📝', 'Encore une nouvelle page ?', 'Notion > tout 📚'],

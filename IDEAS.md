@@ -10,7 +10,8 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [ ] **Saut d'obstacles (Dino-like) :** Le pet doit sauter au-dessus d'obstacles et attraper des pièces.
 - [ ] **Cookie Clicker ou Flappy Pet :** Des classiques adaptés avec notre emoji !
 
-## 🛍️ Boutique & Personnalisation
+## 🛍️ Boutique, Inventaire & Personnalisation
+- [x] **Inventaire de Nourriture :** Acheter de la nourriture la stocke dans un inventaire rapide, pour l'utiliser plus tard !
 - [x] **Fonds d'écran (Pièces) :** Acheter et équiper divers décors (Plage 🏖️, Espace 🚀, Hacker 💻, etc.).
 - [x] **Accessoires & Chapeaux 🎩 :** Calques d'emojis superposés (lunettes 🕶️, couronne 👑, chapeau 🎩, etc.).
 - [x] **Nourriture Premium :** Acheter des plats spéciaux (Pizza 🍕, Sushi 🍣, Ramen 🍜, Café ☕) avec effets variés.

@@ -112,6 +112,11 @@
   const btnArcade       = document.getElementById('btn-arcade');
   const btnReset        = document.getElementById('btn-reset');
   const btnShop         = document.getElementById('btn-shop');
+  const mainControls    = document.getElementById('main-controls');
+  const inventoryPanel  = document.getElementById('inventory-panel');
+  const inventoryItems  = document.getElementById('inventory-items');
+  const inventoryEmpty  = document.getElementById('inventory-empty');
+  const btnCloseInv     = document.getElementById('btn-close-inventory');
 
   const shopTabBgs          = document.getElementById('shop-tab-bgs');
   const shopTabFood         = document.getElementById('shop-tab-food');
@@ -154,6 +159,7 @@
         if (!navi.unlockedBackgrounds) navi.unlockedBackgrounds = ['bg-default'];
         if (!navi.currentBackground)   navi.currentBackground   = 'bg-default';
         if (navi.isShiny === undefined) navi.isShiny = false;
+        if (!navi.inventory)           navi.inventory = {};
         if (!navi.unlockedAccessories.includes('acc-pajama')) {
           navi.unlockedAccessories.push('acc-pajama');
         }
@@ -442,7 +448,60 @@
     showMessage('+10 DevCoins 🪙', '#f1c40f');
   });
 
-  btnFeed.addEventListener('click', () => openShop('food'));
+  btnFeed.addEventListener('click', () => {
+    if (mainControls) mainControls.classList.add('hidden');
+    if (inventoryPanel) inventoryPanel.classList.remove('hidden');
+    renderInventory();
+  });
+
+  if (btnCloseInv) {
+    btnCloseInv.addEventListener('click', () => {
+      inventoryPanel.classList.add('hidden');
+      mainControls.classList.remove('hidden');
+    });
+  }
+
+  function renderInventory() {
+    if (!inventoryItems) return;
+    inventoryItems.innerHTML = '';
+    let hasItems = false;
+    
+    SHOP_FOOD.forEach(foodItem => {
+      const count = navi.inventory ? navi.inventory[foodItem.id] : 0;
+      if (count > 0) {
+        hasItems = true;
+        const btn = document.createElement('button');
+        btn.className = 'action-btn';
+        btn.innerHTML = `<span style="font-size:16px;">${foodItem.icon}</span><br><span style="font-size:8px;">x${count}</span>`;
+        btn.style.cssText = 'padding:5px; gap:2px; height:50px;';
+        
+        btn.onclick = () => {
+          if (navi.inventory[foodItem.id] > 0) {
+            navi.inventory[foodItem.id]--;
+            navi.faim = Math.min(MAX_STAT, navi.faim + (foodItem.faim || 0));
+            navi.joie = Math.min(MAX_STAT, Math.max(0, navi.joie + (foodItem.joie || 0)));
+            navi.energie = Math.min(MAX_STAT, Math.max(0, navi.energie + (foodItem.energie || 0)));
+            
+            spawnParticle(foodItem.icon);
+            triggerAnimation('anim-eat');
+            showMessage(`${foodItem.icon} Miam !`, '#2ecc71');
+            saveData();
+            
+            if (navi.inventory[foodItem.id] <= 0) {
+              renderInventory(); // Re-render pour effacer le bouton si 0
+            } else {
+              btn.innerHTML = `<span style="font-size:16px;">${foodItem.icon}</span><br><span style="font-size:8px;">x${navi.inventory[foodItem.id]}</span>`;
+            }
+          }
+        };
+        inventoryItems.appendChild(btn);
+      }
+    });
+
+    if (inventoryEmpty) {
+      inventoryEmpty.style.display = hasItems ? 'none' : 'block';
+    }
+  }
 
   btnPlay.addEventListener('click', () => {
     if (navi.energie < 15) { showMessage('Trop fatigué...', '#e74c3c'); triggerAnimation('anim-shake'); return; }
@@ -514,22 +573,23 @@
   function renderFood() {
     const info = document.createElement('div');
     info.style.cssText = 'font-size:8px;color:var(--border-color);margin-bottom:8px;text-align:center;';
-    info.textContent = 'Acheter = utiliser immédiatement !';
+    info.textContent = 'Acheter = ajouter à l\'inventaire !';
     shopItemsContainer.appendChild(info);
     SHOP_FOOD.forEach(item => {
-      const div = createShopRow(item.icon, `${item.name} — ${item.desc}`, 'var(--panel-bg)');
+      const isOwned = (navi.inventory && navi.inventory[item.id] > 0);
+      const div = createShopRow(item.icon, `${item.name} — ${item.desc}${isOwned ? '<br><span style="color:#2ecc71;">Possédé: ' + navi.inventory[item.id] + '</span>' : ''}`, 'var(--panel-bg)');
       const btn = createShopBtn();
       btn.textContent = `${item.price} 🪙`;
       btn.style.background = navi.coins >= item.price ? '#2ecc71' : '#bdc3c7';
       btn.style.color = 'white'; btn.disabled = navi.coins < item.price;
       btn.onclick = () => {
         if (navi.coins >= item.price) {
-          navi.coins   -= item.price;
-          navi.faim    = Math.min(MAX_STAT, navi.faim + (item.faim || 0));
-          navi.joie    = Math.min(MAX_STAT, Math.max(0, navi.joie + (item.joie || 0)));
-          navi.energie = Math.min(MAX_STAT, Math.max(0, navi.energie + (item.energie || 0)));
-          saveData(); spawnParticle(item.icon); triggerAnimation('anim-eat');
-          showMessage(`${item.icon} Miam !`, '#2ecc71'); renderShopTab('food');
+          navi.coins -= item.price;
+          if (!navi.inventory) navi.inventory = {};
+          navi.inventory[item.id] = (navi.inventory[item.id] || 0) + 1;
+          saveData();
+          showMessage(`+1 ${item.icon} (Acheté)`, '#f1c40f'); 
+          renderShopTab('food');
         }
       };
       div.appendChild(btn); shopItemsContainer.appendChild(div);
