@@ -1,13 +1,32 @@
 {
   "manifest_version": 3,
   "name": "NaviPet",
-  "version": "1.0",
-  "description": "Votre petit animal virtuel de bureau.",
+  "version": "2.0",
+  "description": "Votre petit animal virtuel de bureau. Élevez-le, jouez avec lui, et il vous accompagne partout !",
   "action": {
     "default_title": "Ouvrir NaviPet",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "permissions": [
-    "storage"
-  ]
+    "storage",
+    "alarms",
+    "notifications",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
 }
