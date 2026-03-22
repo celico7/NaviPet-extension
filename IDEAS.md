@@ -32,15 +32,16 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [ ] **Curseur interactif :** Remplacer le curseur par un pointeur spécial quand on survole l'espace de jeu.
 
 ## 📈 Productivité & Quêtes
-- [ ] **Navi-Défis Journaliers 📜 :** Des objectifs type "Cliquer 100 fois" ou "Travailler 5 fois" pour gagner +50 DevCoins.
-- [ ] **Mode Focus (Pomodoro) 🍅 :** Le pet gagne un bonus d'XP si l'utilisateur respecte un timer de 25 minutes.
+- [x] **Navi-Défis Journaliers 📜 :** Des objectifs type "Cliquer 100 fois" ou "Travailler 5 fois" pour gagner +50 DevCoins.
+- [x] **Mode Focus (Pomodoro) 🍅 :** Le pet gagne un bonus d'XP si l'utilisateur respecte un timer de 25 minutes.
 - [ ] **Boss de Distraction 👾 :** Pendant ta concentration, un monstre "Procrastination" apparaît. Si tu vas sur Twitter/YouTube, il attaque !
+- [ ] **Tapis de course du Scroll 🏃‍♂️ :** Un content script mesure la distance de scroll de l'utilisateur sur les pages web et la convertit en "pas" virtuels pour faire de l'exercice au pet (gain d'XP).
 
 ## 🌙 Idées futures
 - [ ] **Content Script :** Faire apparaître de la nourriture cliquable directement sur les pages web visitées.
 - [ ] **Système de Prestige :** Quand niveau 25 atteint, le pet prend sa retraite et laisse un œuf bonus avec +20 stats de départ.
 - [ ] **Météo réelle :** Via l'API météo open-source pour afficher pluie/soleil dans le background selon la météo locale.
-- [ ] **chrome.idle :** Détecter si l'utilisateur est AFK et mettre le pet en veille automatique.
+- [x] **chrome.idle :** Détecter si l'utilisateur est AFK et mettre le pet en veille automatique.
 
 ---
 *N'hésite pas à rajouter ici toutes les idées qui te viennent à l'esprit pendant le dev !*

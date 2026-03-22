@@ -69,6 +69,7 @@
     currentBackground: 'bg-default',
     unlockedAccessories: ['acc-none', 'acc-pajama'],
     currentAccessory: 'acc-none',
+    quests: null, // { date: 'YYYY-MM-DD', list: [{ id: 'work_5', progress: 0, target: 5, reward: 50, done: false }] }
     lastSaved: Date.now()
   };
 
@@ -105,6 +106,8 @@
   const moodAura        = document.getElementById('mood-aura');
   const shinyBadge      = document.getElementById('shiny-badge');
 
+  const btnFocus        = document.getElementById('btn-focus');
+  const focusText       = document.getElementById('focus-text');
   const btnWork         = document.getElementById('btn-work');
   const btnFeed         = document.getElementById('btn-feed');
   const btnPlay         = document.getElementById('btn-play');
@@ -117,6 +120,11 @@
   const inventoryItems  = document.getElementById('inventory-items');
   const inventoryEmpty  = document.getElementById('inventory-empty');
   const btnCloseInv     = document.getElementById('btn-close-inventory');
+
+  const btnQuests       = document.getElementById('btn-quests');
+  const questsScreen    = document.getElementById('quests-screen');
+  const btnQuestsQuit   = document.getElementById('btn-quests-quit');
+  const questsList      = document.getElementById('quests-list');
 
   const shopTabBgs          = document.getElementById('shop-tab-bgs');
   const shopTabFood         = document.getElementById('shop-tab-food');
@@ -439,13 +447,73 @@
     spawnParticle(navi.isShiny ? '⭐' : '❤️', e.clientX, e.clientY);
     triggerAnimation('anim-eat');
     saveData();
+    advanceQuest('click');
   });
+
+  // ============================================================
+  // --- MODE FOCUS (POMODORO) ---
+  // ============================================================
+  let focusInterval = null;
+
+  function updateFocusUI() {
+    chrome.alarms.get('focus-timer', (alarm) => {
+      if (alarm) {
+        btnFocus.style.backgroundColor = '#2ecc71';
+        btnFocus.style.borderColor = '#27ae60';
+        
+        if (!focusInterval) {
+          focusInterval = setInterval(updateFocusUI, 1000);
+        }
+        
+        const remainingMs = alarm.scheduledTime - Date.now();
+        if (remainingMs > 0) {
+          const mins = Math.floor(remainingMs / 60000);
+          const secs = Math.floor((remainingMs % 60000) / 1000);
+          focusText.textContent = `En Focus : ${mins}:${secs.toString().padStart(2, '0')}`;
+        } else {
+          stopFocusUI();
+        }
+      } else {
+        stopFocusUI();
+      }
+    });
+  }
+
+  function stopFocusUI() {
+    if (focusInterval) {
+      clearInterval(focusInterval);
+      focusInterval = null;
+    }
+    btnFocus.style.backgroundColor = '#e74c3c';
+    btnFocus.style.borderColor = '#c0392b';
+    focusText.textContent = 'Mode Focus (25:00)';
+  }
+
+  btnFocus.addEventListener('click', () => {
+    chrome.alarms.get('focus-timer', (alarm) => {
+      if (alarm) {
+        // Arrêter le focus (abandon)
+        chrome.alarms.clear('focus-timer');
+        stopFocusUI();
+        showMessage('Focus annulé...', '#e74c3c');
+      } else {
+        // Démarrer le focus
+        chrome.alarms.create('focus-timer', { delayInMinutes: 25 });
+        updateFocusUI();
+        showMessage('Concentration ! 🤫', '#2ecc71');
+      }
+    });
+  });
+
+  // Init focus UI
+  updateFocusUI();
 
   btnWork.addEventListener('click', () => {
     if (navi.energie < 20) { showMessage('Trop fatigué...', '#e74c3c'); triggerAnimation('anim-shake'); return; }
     navi.energie -= 10; navi.faim -= 15; navi.joie -= 5; navi.coins += 10;
     spawnParticle('💻'); triggerAnimation('anim-idle'); saveData();
     showMessage('+10 DevCoins 🪙', '#f1c40f');
+    advanceQuest('work');
   });
 
   btnFeed.addEventListener('click', () => {
@@ -486,7 +554,8 @@
             triggerAnimation('anim-eat');
             showMessage(`${foodItem.icon} Miam !`, '#2ecc71');
             saveData();
-            
+            advanceQuest('feed');
+
             if (navi.inventory[foodItem.id] <= 0) {
               renderInventory(); // Re-render pour effacer le bouton si 0
             } else {
@@ -508,6 +577,7 @@
     navi.joie    = Math.min(MAX_STAT, navi.joie + 25);
     navi.energie -= 8; navi.faim -= 10;
     spawnParticle('⚽'); triggerAnimation('anim-idle'); saveData();
+    advanceQuest('play');
   });
 
   btnSleep.addEventListener('click', () => {
@@ -817,6 +887,89 @@
   btnPfcQuit?.addEventListener('click', () => { hideAllScreens(); openArcadeMenu(); });
 
   // ============================================================
+  // --- QUÊTES JOURNALIÈRES ---
+  // ============================================================
+  const DAILY_QUESTS_POOL = [
+    { id: 'work', title: 'Travailler 5 fois', target: 5, reward: 50 },
+    { id: 'feed', title: 'Nourrir 3 fois', target: 3, reward: 20 },
+    { id: 'play', title: 'Jouer 5 fois', target: 5, reward: 20 },
+    { id: 'click', title: 'Caresser 10 fois', target: 10, reward: 15 }
+  ];
+
+  function getDailyQuests() {
+    const today = new Date().toISOString().split('T')[0];
+    if (!navi.quests || navi.quests.date !== today) {
+      let shuffled = [...DAILY_QUESTS_POOL].sort(() => 0.5 - Math.random());
+      navi.quests = {
+        date: today,
+        list: shuffled.slice(0, 3).map(q => ({ ...q, progress: 0, done: false }))
+      };
+      saveData();
+    }
+    return navi.quests.list;
+  }
+
+  function advanceQuest(id, amount = 1) {
+    if (!navi.isAdopted) return;
+    const quests = getDailyQuests();
+    let updated = false;
+    quests.forEach(q => {
+      if (q.id === id && !q.done) {
+        q.progress += amount;
+        if (q.progress >= q.target) {
+          q.progress = q.target;
+          q.done = true;
+          navi.coins += q.reward;
+          setTimeout(() => showMessage(`Quête ! +${q.reward} 🪙`, '#f1c40f'), 1000);
+        }
+        updated = true;
+      }
+    });
+    if (updated) {
+      saveData();
+      if (!questsScreen.classList.contains('hidden')) renderQuests();
+    }
+  }
+
+  function renderQuests() {
+    questsList.innerHTML = '';
+    const quests = getDailyQuests();
+    quests.forEach(q => {
+      const qDiv = document.createElement('div');
+      qDiv.style.cssText = `background:var(--bg-color); border:2px solid var(--border-color); padding:10px; border-radius:5px; text-align:left; font-size:8px; opacity: ${q.done ? '0.6' : '1'};`;
+      
+      const title = document.createElement('div');
+      title.textContent = q.title + ` ( ${q.progress}/${q.target} )`;
+      title.style.marginBottom = '5px';
+      
+      const reward = document.createElement('div');
+      reward.textContent = `🎁 +${q.reward} 🪙`;
+      reward.style.color = '#f1c40f';
+
+      if (q.done) {
+        title.innerHTML = '✅ <strike>' + title.textContent + '</strike>';
+      }
+
+      qDiv.appendChild(title);
+      qDiv.appendChild(reward);
+      questsList.appendChild(qDiv);
+    });
+  }
+
+  btnQuests.addEventListener('click', () => {
+    hideAllScreens();
+    questsScreen.classList.remove('hidden');
+    renderQuests();
+  });
+
+  if (btnQuestsQuit) {
+    btnQuestsQuit.addEventListener('click', () => {
+      questsScreen.classList.add('hidden');
+      gameScreen.classList.remove('hidden');
+    });
+  }
+
+  // ============================================================
   // --- RÉACTIONS AUX ONGLETS ---
   // ============================================================
   function listenForTabReactions() {
@@ -824,6 +977,13 @@
       chrome.runtime.onMessage.addListener((msg) => {
         if (msg.type === 'TAB_REACTION' && msg.message) {
           showMessage(msg.message, '#a29bfe'); spawnParticle('💬');
+        } else if (msg.type === 'FOCUS_END') {
+          stopFocusUI();
+          loadData(); // Recharger les données car bg a modifié les stats
+          showMessage('Focus Terminé ! +50 🪙', '#f1c40f');
+          spawnParticle('🍅');
+        } else if (msg.type === 'STATE_UPDATED') {
+          loadData(); // Recharger quand l'idle state met le pet en veille
         }
       });
     } catch(e) {}

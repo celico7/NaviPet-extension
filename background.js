@@ -22,8 +22,29 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === ALARM_CHECK) {
     checkPetStatus();
+  } else if (alarm.name === 'focus-timer') {
+    handleFocusEnd();
   }
 });
+
+function handleFocusEnd() {
+  chrome.storage.local.get(['naviState'], (result) => {
+    let navi = result.naviState || {};
+    if (navi.isAdopted) {
+      navi.coins = (navi.coins || 0) + 50;
+      navi.xp = (navi.xp || 0) + 50;
+      navi.joie = Math.min(100, navi.joie + 20);
+      chrome.storage.local.set({ naviState: navi });
+      
+      sendNotification(
+        '🍅 Focus Terminé !',
+        'Bravo pour ta concentration ! Ton pet gagne +50 XP et +50 🪙.',
+        'focus'
+      );
+    }
+    chrome.runtime.sendMessage({ type: 'FOCUS_END' }).catch(() => {});
+  });
+}
 
 function checkPetStatus() {
   chrome.storage.local.get(['naviState'], (result) => {
@@ -164,4 +185,31 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === 'GET_STATUS') {
     sendResponse({ ok: true });
   }
+});
+// --- DETECTION AFK (CHROME.IDLE) ---
+// Met le pet en veille automatiquement si l'utilisateur est inactif
+chrome.idle.setDetectionInterval(300); // 5 minutes
+
+chrome.idle.onStateChanged.addListener((newState) => {
+  chrome.storage.local.get(['naviState'], (result) => {
+    if (!result.naviState || !result.naviState.isAdopted) return;
+
+    let navi = result.naviState;
+    if (newState === 'idle' || newState === 'locked') {
+      if (!navi.isSleeping) {
+        navi.isSleeping = true;
+        navi.autoSleeping = true; // Pour le r�veiller auto
+        chrome.storage.local.set({ naviState: navi });
+        // Notifier la UI si ouverte
+        chrome.runtime.sendMessage({ type: 'STATE_UPDATED' }).catch(() => {});
+      }
+    } else if (newState === 'active') {
+      if (navi.isSleeping && navi.autoSleeping) {
+        navi.isSleeping = false;
+        navi.autoSleeping = false;
+        chrome.storage.local.set({ naviState: navi });
+        chrome.runtime.sendMessage({ type: 'STATE_UPDATED' }).catch(() => {});
+      }
+    }
+  });
 });

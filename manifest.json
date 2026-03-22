@@ -19,7 +19,8 @@
     "storage",
     "alarms",
     "notifications",
-    "tabs"
+    "tabs",
+    "idle"
   ],
   "host_permissions": [
     "<all_urls>"
