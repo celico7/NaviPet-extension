@@ -15,6 +15,7 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [x] **Fonds d'écran (Pièces) :** Acheter et équiper divers décors (Plage 🏖️, Espace 🚀, Hacker 💻, etc.).
 - [x] **Accessoires & Chapeaux 🎩 :** Calques d'emojis superposés (lunettes 🕶️, couronne 👑, chapeau 🎩, etc.).
 - [x] **Nourriture Premium :** Acheter des plats spéciaux (Pizza 🍕, Sushi 🍣, Ramen 🍜, Café ☕) avec effets variés.
+- [ ] **Cosmétique "Open Source" 🎖️ :** Un accessoire exclusif (ex: un sweat à capuche GitHub) caché, qui se débloque uniquement si l'utilisateur clique sur le lien des crédits GitHub dans le footer !
 
 ## 🧬 Évolution & Espèces
 - [x] Animations de naissance (L'œuf éclot).
@@ -34,8 +35,13 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 ## 📈 Productivité & Quêtes
 - [x] **Navi-Défis Journaliers 📜 :** Des objectifs type "Cliquer 100 fois" ou "Travailler 5 fois" pour gagner +50 DevCoins.
 - [x] **Mode Focus (Pomodoro) 🍅 :** Le pet gagne un bonus d'XP si l'utilisateur respecte un timer de 25 minutes.
+- [ ] **GitHub Commit Feeder 🐙 :** Relier NaviPet à l'API GitHub pour que chaque "commit" ou "push" de la journée nourrisse automatiquement le pet !
 - [ ] **Boss de Distraction 👾 :** Pendant ta concentration, un monstre "Procrastination" apparaît. Si tu vas sur Twitter/YouTube, il attaque !
 - [ ] **Tapis de course du Scroll 🏃‍♂️ :** Un content script mesure la distance de scroll de l'utilisateur sur les pages web et la convertit en "pas" virtuels pour faire de l'exercice au pet (gain d'XP).
+
+## 🌍 Social & Partage
+- [ ] **Codes d'Ami (Export) 🤝 :** Générer un code court représentant l'état, le niveau et le look du pet pour le partager et "visiter" les pets de ses amis en lecture seule.
+- [ ] **Panthéon (Leaderboard) 🏆 :** Un mini-classement anonyme (via Firebase) pour voir qui a le pet le plus vieux ou le plus riche.
 
 ## 🌙 Idées futures
 - [ ] **Content Script :** Faire apparaître de la nourriture cliquable directement sur les pages web visitées.
@@ -44,4 +50,3 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [x] **chrome.idle :** Détecter si l'utilisateur est AFK et mettre le pet en veille automatique.
 
 ---
-*N'hésite pas à rajouter ici toutes les idées qui te viennent à l'esprit pendant le dev !*

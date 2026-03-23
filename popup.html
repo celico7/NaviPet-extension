@@ -147,6 +147,20 @@
       <div id="mg-area"></div>
       <button id="btn-bug-quit" class="action-btn danger btn-mg-quit">← Retour Arcade</button>
     </div>
+
+    <!-- Zone Saut d'Obstacles -->
+    <div id="jump-game-area" class="hidden">
+      <h2 class="jump-title">🏃‍♂️ Saut d'Obstacles</h2>
+      <div class="jump-hud">
+        <span style="color:white; font-size:9px;">Score : <span id="jump-score" style="color:#f1c40f;">0</span></span>
+      </div>
+      <div id="jump-viewport">
+        <div id="jump-player">🥚</div>
+        <div id="jump-obstacle" class="hidden">🌵</div>
+      </div>
+      <p style="font-size:7px; color:rgba(255,255,255,0.6); margin:10px 0;">Appuie sur ESPACE ou CLIQUE pour sauter !</p>
+      <button id="btn-jump-quit" class="action-btn danger btn-mg-quit">← Retour Arcade</button>
+    </div>
   </div>
 
   <!-- ======================== PIERRE FEUILLE CISEAUX ======================== -->
@@ -188,8 +202,9 @@
   </div>
 
   <script type="module" src="popup.js"></script>
-  <div class="footer-danger">
-    <a id="btn-reset" href="#" class="btn-reset-link">[Danger: Reset Sauvegarde]</a>
+  <div class="footer-credits">
+    <span class="credits-text">© 2026 - <a href="https://github.com/celico7" target="_blank" rel="noopener noreferrer" class="credits-link" title="Mon github">celico7</a> </span>
+    <a id="btn-reset" href="#" class="btn-reset-icon" title="Reset Sauvegarde">🗑️</a>
   </div>
 </body>
 </html>

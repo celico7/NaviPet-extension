@@ -1,6 +1,6 @@
 import { stateManager } from './state.js';
 import { ui } from './ui.js';
-import { MAX_STAT } from './constants.js';
+import { MAX_STAT, SPECIES_DATA } from './constants.js';
 
 class MinigamesController {
   constructor() {
@@ -20,6 +20,14 @@ class MinigamesController {
     this.memoryLocked = false;
     this.memoryTimerInterval = null;
     this.memoryTimeLeft = 60;
+    
+    // État Jump Game
+    this.jumpGameActive = false;
+    this.jumpScore = 0;
+    this.jumpSpeed = 5;
+    this.obstaclePos = 280;
+    this.isJumping = false;
+    this.jumpLoop = null;
   }
 
   cacheDOM() {
@@ -49,6 +57,15 @@ class MinigamesController {
     this.pfcResult = document.getElementById('pfc-result');
     this.pfcChoiceBtns = document.querySelectorAll('.pfc-choice-btn');
     this.btnPfcQuit = document.getElementById('btn-pfc-quit');
+
+    // Saut d'obstacles
+    this.btnStartJump = document.getElementById('btn-start-jump');
+    this.jumpGameArea = document.getElementById('jump-game-area');
+    this.jumpViewport = document.getElementById('jump-viewport');
+    this.jumpPlayer = document.getElementById('jump-player');
+    this.jumpObstacle = document.getElementById('jump-obstacle');
+    this.jumpScoreDisplay = document.getElementById('jump-score');
+    this.btnJumpQuit = document.getElementById('btn-jump-quit');
   }
 
   bindEvents() {
@@ -78,18 +95,39 @@ class MinigamesController {
       btn.addEventListener('click', () => this.playPfcMatch(btn.getAttribute('data-choice')));
     });
     this.btnPfcQuit?.addEventListener('click', () => this.openArcadeMenu());
+
+    // Jump Game
+    this.btnStartJump?.addEventListener('click', () => this.startJumpGame());
+    this.btnJumpQuit?.addEventListener('click', () => {
+      this.clearAllIntervals();
+      this.openArcadeMenu();
+    });
+    
+    // Jump mechanics (Space or Click)
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && this.jumpGameActive) {
+        e.preventDefault();
+        this.performJump();
+      }
+    });
+    this.jumpViewport?.addEventListener('mousedown', () => {
+      if (this.jumpGameActive) this.performJump();
+    });
   }
 
   openArcadeMenu() {
     ui.showScreen('arcadeScreen');
     if (this.arcadeMenu) this.arcadeMenu.classList.remove('hidden');
     if (this.bugGameArea) this.bugGameArea.classList.add('hidden');
+    if (this.jumpGameArea) this.jumpGameArea.classList.add('hidden');
+    this.jumpGameActive = false;
   }
 
   clearAllIntervals() {
     if (this.mgInterval) clearInterval(this.mgInterval);
     if (this.mgSpawnInterval) clearInterval(this.mgSpawnInterval);
     if (this.memoryTimerInterval) clearInterval(this.memoryTimerInterval);
+    if (this.jumpLoop) cancelAnimationFrame(this.jumpLoop);
   }
 
   // ==========================================
@@ -329,6 +367,100 @@ class MinigamesController {
     }
     
     stateManager.notify();
+  }
+
+  // ==========================================
+  // SAUT D'OBSTACLES (JUMP GAME)
+  // ==========================================
+  startJumpGame() {
+    if (this.arcadeMenu) this.arcadeMenu.classList.add('hidden');
+    if (this.jumpGameArea) this.jumpGameArea.classList.remove('hidden');
+    
+    this.clearAllIntervals();
+    this.jumpGameActive = true;
+    this.jumpScore = 0;
+    this.jumpSpeed = 4;
+    this.obstaclePos = 280; // Viewport width
+    if (this.jumpScoreDisplay) this.jumpScoreDisplay.textContent = '0';
+    if (this.jumpPlayer) {
+      this.jumpPlayer.classList.remove('jumping');
+      const sp = SPECIES_DATA.find(s => s.id === stateManager.data.species);
+      this.jumpPlayer.textContent = sp ? sp.emojis[0] : '🥚';
+    }
+    if (this.jumpObstacle) {
+      this.jumpObstacle.style.left = '300px';
+      this.jumpObstacle.classList.remove('hidden');
+    }
+    
+    // Decrease energy before playing
+    stateManager.updateStat('energie', -10);
+    stateManager.notify();
+    
+    requestAnimationFrame(() => this.updateJumpGame());
+  }
+
+  performJump() {
+    if (this.isJumping || !this.jumpPlayer) return;
+    this.isJumping = true;
+    this.jumpPlayer.classList.add('jumping');
+    
+    setTimeout(() => {
+      this.jumpPlayer.classList.remove('jumping');
+      this.isJumping = false;
+    }, 600); // match CSS animation duration
+  }
+
+  updateJumpGame() {
+    if (!this.jumpGameActive) return;
+
+    // Move obstacle
+    this.obstaclePos -= this.jumpSpeed;
+    if (this.obstaclePos < -30) {
+      this.obstaclePos = 280;
+      this.jumpScore += 1;
+      if (this.jumpScoreDisplay) this.jumpScoreDisplay.textContent = this.jumpScore;
+      this.jumpSpeed += 0.2; // increase difficulty slightly
+    }
+    if (this.jumpObstacle) {
+      this.jumpObstacle.style.left = this.obstaclePos + 'px';
+    }
+
+    // Check collision
+    const playerRect = this.jumpPlayer.getBoundingClientRect();
+    const obstacleRect = this.jumpObstacle.getBoundingClientRect();
+
+    // Simple AABB collision (a bit forgiving for the player)
+    if (
+      playerRect.right - 10 > obstacleRect.left &&
+      playerRect.left + 10 < obstacleRect.right &&
+      playerRect.bottom - 5 > obstacleRect.top
+    ) {
+      this.endJumpGame();
+      return;
+    }
+
+    this.jumpLoop = requestAnimationFrame(() => this.updateJumpGame());
+  }
+
+  endJumpGame() {
+    this.jumpGameActive = false;
+    if (this.jumpLoop) cancelAnimationFrame(this.jumpLoop);
+    if (this.jumpPlayer) this.jumpPlayer.classList.remove('jumping');
+    
+    const coinsWon = Math.floor(this.jumpScore * 2);
+    const data = stateManager.data;
+    data.coins += coinsWon;
+    stateManager.updateStat('joie', 15);
+    stateManager.notify();
+
+    if (this.jumpScoreDisplay) {
+      this.jumpScoreDisplay.innerHTML = this.jumpScore + ' <br><span style="color:#2ecc71;font-size:9px;">+ ' + coinsWon + ' 🪙</span>';
+    }
+    
+    setTimeout(() => {
+      this.openArcadeMenu();
+      if (coinsWon > 0) ui.showMessage('+' + coinsWon + ' 🪙 gagnés !', '#f1c40f');
+    }, 2500);
   }
 }
 

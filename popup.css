@@ -59,7 +59,8 @@ body {
 #accessory-layer { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 28px; pointer-events: none; z-index: 11; line-height: 1; display: none; }
 #shiny-badge { position: absolute; top: -5px; right: -15px; font-size: 14px; z-index: 12; animation: shinyPulse 1.5s infinite; display: none; }
 
-#status-message { margin-top:10px; font-size:10px; height:12px; z-index:10; color:var(--text-color); min-width:200px; }
+#status-message { margin-top:10px; font-size:10px; height:12px; z-index:10; color:var(--text-color); min-width:200px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.8); }
+body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.8); }
 #pet-name-display { font-size:14px; color:#e67e22; margin-bottom:5px; }
 
 .stats-panel { background-color:var(--panel-bg); padding:10px; border-top:2px solid var(--border-color); }
@@ -106,12 +107,12 @@ body {
 /* ARCADE */
 #arcade-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; background:linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); }
 #arcade-menu { width:100%; }
-.arcade-title { color: white; margin: 20px 0 5px; font-size: 14px; }
-.arcade-subtitle { font-size: 8px; color: rgba(255,255,255,0.6); margin-bottom: 0; }
+.arcade-title { color: white; margin: 20px 0 5px; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.arcade-subtitle { font-size: 8px; color: rgba(255,255,255,0.8); margin-bottom: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
 .arcade-choice { display:flex; flex-direction:column; gap:10px; padding:0 20px; margin-top:10px; }
-.arcade-game-btn { background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.2); border-radius:10px; padding:14px; font-family:inherit; font-size:9px; cursor:pointer; color:white; transition:all 0.2s; }
+.arcade-game-btn { background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.2); border-radius:10px; padding:14px; font-family:inherit; font-size:9px; cursor:pointer; color:white; transition:all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
 .arcade-game-btn:hover { background:rgba(162,155,254,0.5); border-color:#a29bfe; transform:translateY(-2px); }
-.game-desc { font-size:7px; opacity:0.6; }
+.game-desc { font-size:7px; opacity:0.8; }
 .btn-mg-quit { width: 80%; margin: 15px auto 20px; padding: 12px; font-size: 11px; }
 
 /* BUG GAME */
@@ -121,6 +122,20 @@ body {
 .timer-val { color: #e74c3c; font-size: 11px; }
 .score-val { color: #f1c40f; font-size: 11px; }
 #mg-area { position:relative; height:220px; background-color:#0d1117; margin:0 15px 10px 15px; border-radius:10px; overflow:hidden; border:2px solid #30363d; cursor:crosshair; }
+
+/* JUMP GAME */
+#jump-game-area { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.jump-title { color: white; margin: 15px 0 5px; font-size: 12px; text-shadow: 1px 1px 2px #000; }
+.jump-hud { width: 100%; text-align: right; padding: 0 20px; box-sizing: border-box; margin-bottom: 5px; }
+#jump-viewport { width: 280px; height: 160px; background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #c2b280 70%, #c2b280 100%); margin: auto; position: relative; border-radius: 10px; overflow: hidden; border: 2px solid #34495e; cursor: pointer; }
+#jump-player { position: absolute; left: 20px; bottom: 48px; font-size: 32px; z-index: 10; }
+#jump-player.jumping { animation: jumpArc 0.6s linear; }
+#jump-obstacle { position: absolute; left: 280px; bottom: 48px; font-size: 24px; z-index: 5; }
+@keyframes jumpArc { 
+0% { transform: translateY(0); animation-timing-function: ease-out; } 
+50% { transform: translateY(-80px); animation-timing-function: ease-in; } 
+100% { transform: translateY(0); } 
+}
 
 /* PFC */
 #pfc-screen { display:flex; flex-direction:column; min-height:480px; align-items:center; padding-top:20px; background:linear-gradient(135deg,#e67e22,#c0392b); }
@@ -152,9 +167,13 @@ body {
 #quests-list { flex-grow:1; display:flex; flex-direction:column; gap:8px; padding:0 15px; overflow-y:auto; margin-bottom:10px; }
 .btn-quests-quit { width: 80%; margin: 0 auto 15px; padding: 12px; font-size: 11px; }
 
-/* FOOTER DANGER */
-.footer-danger { text-align: center; padding: 8px 0; background: var(--panel-bg); border-top: 1px solid var(--border-color); }
-.btn-reset-link { color: #e74c3c; font-size: 7px; text-decoration: none; opacity: 0.6; }
+/* FOOTER CREDITS */
+.footer-credits { display: flex; justify-content: space-between; align-items: center; padding: 8px 15px; background: var(--panel-bg); border-top: 1px solid var(--border-color); font-size: 8px; }
+.credits-text { color: var(--text-color); opacity: 0.8; }
+.credits-link { color: #3498db; text-decoration: none; }
+.credits-link:hover { text-decoration: underline; color: #2980b9; }
+.btn-reset-icon { color: #e74c3c; font-size: 14px; text-decoration: none; opacity: 0.7; transition: transform 0.2s; }
+.btn-reset-icon:hover { opacity: 1; transform: scale(1.2); }
 
 /* ===== ANIMATIONS ===== */
 .particle { position:absolute; font-size:20px; pointer-events:none; animation:floatUp 1s ease-out forwards; z-index:15; }
