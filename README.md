@@ -1,37 +1,43 @@
-# NaviPet - Ton Compagnon Virtuel de Développement
+# NaviPet - Ton Compagnon Virtuel de Développement ✨
 
-NaviPet est une extension Chrome interactive sous forme de petit animal de compagnie virtuel (façon Tamagotchi) qui vit dans votre navigateur. Prenez soin de lui, nourrissez-le, jouez avec lui et gagnez des DevCoins en travaillant !
+NaviPet est une extension Chrome interactive sous la forme d'un petit animal de compagnie virtuel (façon Tamagotchi) qui vit dans ton navigateur. Prends soin de lui, joue à des mini-jeux, personnalise-le et reste concentré pendant tes sessions de code !
 
-## Fonctionnalités
-- **Évolution :** Votre NaviPet gagne de l'XP et évolue avec le temps.
-- **Économie :** Gagnez des DevCoins en "travaillant" pour pouvoir acheter de la nourriture.
-- **Cycle Jour/Nuit :** L'interface s'adapte automatiquement à l'heure de votre journée.
-- **Sauvegarde Hors-ligne :** Votre pet continue de vivre, d'avoir faim et de se fatiguer même quand l'extension est fermée.
+## ✨ Fonctionnalités Principales
 
-## Comment installer l'extension (Mode Développeur)
+*   **Gestion Complète des Besoins :** Gère la Faim, la Joie et l'Énergie de ton compagnon. L'avancée et le vieillissement continuent même quand le navigateur est éteint grâce à une gestion de timestamps !
+*   **Boutique & Inventaire 🛒 :** Dépense tes DevCoins durement gagnés pour acheter de la nourriture, débloquer des décors 🏞️, ou équiper des accessoires 🎩 sur ton pet.
+*   **Salle d'Arcade 🎮 :** Gagne de l'argent en jouant :
+    *   *Chasse aux Bugs :* Écrase un max de bugs avant la fin du temps imparti (15s) !
+    *   *Memory :* Retrouve toutes les paires avant la fin du timer (45s).
+    *   *Pierre-Feuille-Ciseaux :* Défie directement ton familier en duel (Attention, ça lui coûte de l'énergie).
+*   **Mode Focus (Pomodoro) 🍅 :** Lance un minuteur de concentration pour travailler sans distraction. Pendant ce temps, ton compagnon gagne de l'XP et accumule des paliers !
+*   **Quêtes Journalières 📜 :** Complète des objectifs spécifiques chaque jour (Reset automatique à minuit) pour gagner de belles récompenses (XP, Coins).
+*   **Cycle Jour / Nuit :** Thème de l'interface dynamique qui change selon ton heure locale.
 
-NaviPet n'est pas encore sur le Chrome Web Store. Pour l'installer localement sur votre navigateur (Chrome, Brave, Edge), suivez ces étapes :
+## 🏗️ Architecture Technique (Clean Code)
 
-1. **Cloner ou télécharger le code**
-   Clonez ce dépôt ou téléchargez le dossier contenant les fichiers (`manifest.json`, `popup.html`, `popup.js`, etc.).
+Le projet a été pensé avec des standards de développement modernes et de l'ingénierie logicielle avancée :
 
-2. **Ouvrir la page des extensions**
-   - Sur Chrome/Brave : Tapez `chrome://extensions/` dans la barre d'adresse et appuyez sur Entrée (ou `brave://extensions/`).
-   - Sur Edge : Tapez `edge://extensions/`.
+*   **Manifest V3 :** Standard actuel de Google (utilisation de `chrome.storage.local`, listes de permissions strictes).
+*   **Architecture Modulaire (ES6) :** Structure décomposée en modules par domaine métier (`state.js`, `ui.js`, `shop.js`, `minigames.js`, `quests.js`) pour une grande maintenabilité.
+*   **State Management (Pattern Pub/Sub) :** Un gestionnaire d'état (`PetState`) agit comme un Store réactif. Il notifie les UIs abonnées à chaque modification pour rafraîchir l'écran, et se synchronise automatiquement en local.
+*   **Event-Driven Architecture :** L'émission d'évènements Customisés (`navipet:action`) désapparie les modules. Les quêtes écoutent le système entier sans que l'on ait à forcer des dépendances directes de partout !
+*   **Séparation des responsabilités (CSS/HTML) :** Feuilles de style isolées, sans code spaghetti.
 
-3. **Activer le Mode Développeur**
-   En haut à droite de la page des extensions, activez le bouton **"Mode développeur"** (Developer mode).
+## 🚀 Comment installer l'extension (Mode Développeur)
 
-4. **Charger l'extension non empaquetée**
-   - Cliquez sur le bouton **"Charger l'extension non empaquetée"** (Load unpacked) qui vient d'apparaître en haut à gauche.
-   - Sélectionnez le dossier `NaviPet-extension` (celui qui contient le fichier `manifest.json`).
+NaviPet s'installe localement sur n'importe quel navigateur basé sur Chromium (Chrome, Brave, Edge...) en 4 étapes simples :
 
-5. **Profiter !**
-   - L'icône de NaviPet apparaît désormais dans la barre d'extensions de votre navigateur (en haut à droite, vous pouvez l'épingler avec l'icône de puzzle).
-   - Cliquez dessus pour découvrir votre nouveau compagnon !
+1.  **Cloner le dépôt** (ou télécharger en .zip) sur ton ordinateur.
+2.  **Ouvrir la page des extensions :** Tape `chrome://extensions/` dans la barre d'adresse de ton navigateur.
+3.  **Activer le Mode Développeur :** En haut à droite de ta page, bascule l'interrupteur.
+4.  **Charger l'extension non empaquetée :** Clique sur le bouton "Charger l'extension non empaquetée" et sélectionne le dossier racine `NaviPet-extension`.
 
-## Comment développer et mettre à jour ?
-Si vous modifiez le code (HTML, JS, CSS) :
-1. Sauvegardez vos fichiers.
-2. Rouvrez la bulle de l'extension pour voir les changements immédiats du HTML/JS/CSS de la popup.
-3. *Note : Si vous modifiez le `manifest.json` ou si des bugs persistent, cliquez sur l'icône "Actualiser" de NaviPet sur la page `chrome://extensions/`.*
+*Et voilà ! Tu peux épingler l'extension 🧩, adopter ton premier familier et commencer l'aventure !*
+
+## 🛠️ Comment développer ?
+
+Pour modifier le code :
+1. Fais tes modifications dans les fichiers.
+2. Ferme et rouvre la popup de l'extension pour voir les changements de l'UI en direct.
+3. *Note :* Si tu modifies le `manifest.json`, pense à bien recharger l'extension via la page Web `chrome://extensions/` (icône petite flèche qui tourne circulaire).
