@@ -183,6 +183,49 @@ class AppController {
     document.getElementById('btn-reset')?.addEventListener('click', () => {
       stateManager.reset().then(() => window.location.reload());
     });
+
+    // --- NOTIFICATIONS ---
+    const btnNotif = document.getElementById('btn-notif');
+    if (btnNotif) {
+      // Vérifier le statut initial
+      if (chrome.permissions) {
+        chrome.permissions.contains({ permissions: ['notifications'] }, (hasPerm) => {
+          btnNotif.textContent = hasPerm ? '🔔' : '🔕';
+          btnNotif.title = hasPerm ? 'Désactiver les notifications' : 'Activer les notifications';
+        });
+      }
+      
+      btnNotif.addEventListener('click', (e) => {
+        e.preventDefault();
+        chrome.permissions.contains({ permissions: ['notifications'] }, (hasPerm) => {
+          if (hasPerm) {
+            chrome.permissions.remove({ permissions: ['notifications'] }, (removed) => {
+              if (removed) {
+                btnNotif.textContent = '🔕';
+                btnNotif.title = 'Activer les notifications';
+                ui.showMessage('Notifications désactivées', '#e74c3c');
+              }
+            });
+          } else {
+            chrome.permissions.request({ permissions: ['notifications'] }, (granted) => {
+              if (granted) {
+                btnNotif.textContent = '🔔';
+                btnNotif.title = 'Désactiver les notifications';
+                ui.showMessage('Notifications activées !', '#2ecc71');
+                
+                // Petit test pour vérifier que ça marche
+                chrome.notifications.create({
+                  type: 'basic',
+                  iconUrl: 'icons/icon128.png',
+                  title: 'NaviPet',
+                  message: 'Les notifications sont bien activées ! 🎉'
+                });
+              }
+            });
+          }
+        });
+      });
+    }
   }
 
   // --- ONBOARDING UTILS ---

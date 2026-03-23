@@ -18,9 +18,11 @@
   "permissions": [
     "storage",
     "alarms",
-    "notifications",
     "tabs",
     "idle"
+  ],
+  "optional_permissions": [
+    "notifications"
   ],
   "host_permissions": [
     "<all_urls>"

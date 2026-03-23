@@ -172,8 +172,10 @@ body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1p
 .credits-text { color: var(--text-color); opacity: 0.8; }
 .credits-link { color: #3498db; text-decoration: none; }
 .credits-link:hover { text-decoration: underline; color: #2980b9; }
-.btn-reset-icon { color: #e74c3c; font-size: 14px; text-decoration: none; opacity: 0.7; transition: transform 0.2s; }
-.btn-reset-icon:hover { opacity: 1; transform: scale(1.2); }
+.btn-notif-icon, .btn-reset-icon { font-size: 14px; text-decoration: none; opacity: 0.7; transition: transform 0.2s; margin-left: 5px; }
+.btn-notif-icon { color: #f1c40f; }
+.btn-reset-icon { color: #e74c3c; }
+.btn-notif-icon:hover, .btn-reset-icon:hover { opacity: 1; transform: scale(1.2); }
 
 /* ===== ANIMATIONS ===== */
 .particle { position:absolute; font-size:20px; pointer-events:none; animation:floatUp 1s ease-out forwards; z-index:15; }
