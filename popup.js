@@ -147,6 +147,10 @@ class AppController {
       document.dispatchEvent(new CustomEvent('navipet:action', { detail: { type: 'play' } }));
     });
 
+    ui.elements.btnArcade?.addEventListener('click', () => {
+      ui.showScreen('arcadeScreen');
+    });
+
     ui.elements.btnSleep?.addEventListener('click', () => {
       const data = stateManager.data;
       data.isSleeping = !data.isSleeping;
