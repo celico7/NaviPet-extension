@@ -1,17 +1,17 @@
-# NaviPet - Ton Compagnon Virtuel de Développement ✨
+# NaviPet - Ton Compagnon Virtuel de Développement
 
 NaviPet est une extension Chrome interactive sous la forme d'un petit animal de compagnie virtuel (façon Tamagotchi) qui vit dans ton navigateur. Prends soin de lui, joue à des mini-jeux, personnalise-le et reste concentré pendant tes sessions de code !
 
 ## ✨ Fonctionnalités Principales
 
 *   **Gestion Complète des Besoins :** Gère la Faim, la Joie et l'Énergie de ton compagnon. L'avancée et le vieillissement continuent même quand le navigateur est éteint grâce à une gestion de timestamps !
-*   **Boutique & Inventaire 🛒 :** Dépense tes DevCoins durement gagnés pour acheter de la nourriture, débloquer des décors 🏞️, ou équiper des accessoires 🎩 sur ton pet.
-*   **Salle d'Arcade 🎮 :** Gagne de l'argent en jouant :
+*   **Boutique & Inventaire :** Dépense tes DevCoins durement gagnés pour acheter de la nourriture, débloquer des décors, ou équiper des accessoires sur ton pet.
+*   **Salle d'Arcade :** Gagne de l'argent en jouant :
     *   *Chasse aux Bugs :* Écrase un max de bugs avant la fin du temps imparti (15s) !
     *   *Memory :* Retrouve toutes les paires avant la fin du timer (45s).
     *   *Pierre-Feuille-Ciseaux :* Défie directement ton familier en duel (Attention, ça lui coûte de l'énergie).
-*   **Mode Focus (Pomodoro) 🍅 :** Lance un minuteur de concentration pour travailler sans distraction. Pendant ce temps, ton compagnon gagne de l'XP et accumule des paliers !
-*   **Quêtes Journalières 📜 :** Complète des objectifs spécifiques chaque jour (Reset automatique à minuit) pour gagner de belles récompenses (XP, Coins).
+*   **Mode Focus (Pomodoro) :** Lance un minuteur de concentration pour travailler sans distraction. Pendant ce temps, ton compagnon gagne de l'XP et accumule des paliers !
+*   **Quêtes Journalières :** Complète des objectifs spécifiques chaque jour (Reset automatique à minuit) pour gagner de belles récompenses (XP, Coins).
 *   **Cycle Jour / Nuit :** Thème de l'interface dynamique qui change selon ton heure locale.
 
 ## 🏗️ Architecture Technique (Clean Code)
@@ -32,8 +32,6 @@ NaviPet s'installe localement sur n'importe quel navigateur basé sur Chromium (
 2.  **Ouvrir la page des extensions :** Tape `chrome://extensions/` dans la barre d'adresse de ton navigateur.
 3.  **Activer le Mode Développeur :** En haut à droite de ta page, bascule l'interrupteur.
 4.  **Charger l'extension non empaquetée :** Clique sur le bouton "Charger l'extension non empaquetée" et sélectionne le dossier racine `NaviPet-extension`.
-
-*Et voilà ! Tu peux épingler l'extension 🧩, adopter ton premier familier et commencer l'aventure !*
 
 ## 🛠️ Comment développer ?
 
