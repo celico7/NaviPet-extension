@@ -41,3 +41,4 @@ Pour modifier le code :
 1. Fais tes modifications dans les fichiers.
 2. Ferme et rouvre la popup de l'extension pour voir les changements de l'UI en direct.
 3. *Note :* Si tu modifies le `manifest.json`, pense à bien recharger l'extension via la page Web `chrome://extensions/` (icône petite flèche qui tourne circulaire).
+<img src="navipet.png"/>
