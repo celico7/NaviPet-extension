@@ -9,7 +9,9 @@ NaviPet est une extension Chrome interactive sous la forme d'un petit animal de 
 *   **Salle d'Arcade :** Gagne de l'argent en jouant :
     *   *Chasse aux Bugs :* Écrase un max de bugs avant la fin du temps imparti (15s) !
     *   *Memory :* Retrouve toutes les paires avant la fin du timer (45s).
+    *   *Saut d'Obstacles :* Un mini-jeu type "Dino Chrome" où tu dois esquiver des cactus pour gagner des points !
     *   *Pierre-Feuille-Ciseaux :* Défie directement ton familier en duel (Attention, ça lui coûte de l'énergie).
+*   **Notifications Configurables :** Choisis d'activer ou désactiver les alertes directement dans l'extension via le bouton "cloche" (utilise les API optionnelles de Chrome pour le respect de la vie privée).
 *   **Mode Focus (Pomodoro) :** Lance un minuteur de concentration pour travailler sans distraction. Pendant ce temps, ton compagnon gagne de l'XP et accumule des paliers !
 *   **Quêtes Journalières :** Complète des objectifs spécifiques chaque jour (Reset automatique à minuit) pour gagner de belles récompenses (XP, Coins).
 *   **Cycle Jour / Nuit :** Thème de l'interface dynamique qui change selon ton heure locale.
