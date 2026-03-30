@@ -3,7 +3,7 @@
 // ============================================================
 
 export const SPECIES_DATA = [
-  { id: 'dragon', name: 'Dragon',  emojis: ['🥚', '🦎', '🐉', '🐉', '🐉', '🐉'],  shiny: '✨🐉' },
+  { id: 'dragon', name: 'Dragon',  emojis: ['assets/sprites/pets/egg.png', '🦎', '🐉', '🐉', '🐉', '🐉'],  shiny: '✨🐉' },
   { id: 'dog',    name: 'Chien',   emojis: ['🐶', '🐕', '🐕', '🐕', '🐕', '🐕'],   shiny: '⭐🐕' },
   { id: 'cat',    name: 'Chat',    emojis: ['🐱', '🐈', '🐈', '🐈', '🐈', '🐈'],   shiny: '💫🐈' },
   { id: 'robot',  name: 'Robot',   emojis: ['📦', '🤖', '👾', '👾', '👾', '👾'],   shiny: '🌟👾' },

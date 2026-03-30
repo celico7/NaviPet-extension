@@ -121,10 +121,10 @@ class UIController {
     const accData = SHOP_ACCESSORIES.find(a => a.id === (data.currentAccessory || 'acc-none'));
     if (this.elements.accessoryLayer) {
       if (isNight && (!accData || !accData.emoji)) {
-        this.elements.accessoryLayer.textContent = '🌙';
+        this.renderSpriteToElement(this.elements.accessoryLayer, '🌙');
         this.elements.accessoryLayer.style.display = 'block';
       } else {
-        this.elements.accessoryLayer.textContent = accData?.emoji || '';
+        this.renderSpriteToElement(this.elements.accessoryLayer, accData?.emoji || '');
         this.elements.accessoryLayer.style.display = accData?.emoji ? 'block' : 'none';
       }
     }
@@ -165,6 +165,19 @@ class UIController {
     return sp.emojis[5] || sp.emojis[sp.emojis.length - 1];
   }
 
+  renderSpriteToElement(element, content) {
+    if (!element) return;
+    if (content && (content.endsWith('.png') || content.endsWith('.gif'))) {
+      element.innerHTML = `<img src="${content}" style="width:100%; height:100%; object-fit:contain; image-rendering:pixelated;" draggable="false"/>`;
+      // Ajout temporaire pour garder le wrapper propre sans texte résiduel
+      element.style.color = "transparent";
+    } else {
+      element.innerHTML = '';
+      element.textContent = content;
+      element.style.color = "";
+    }
+  }
+
   updateAvatarState(data) {
     const avatar = this.elements.avatar;
     if (!avatar) return;
@@ -173,25 +186,25 @@ class UIController {
     const currentEmoji = this.getAvatarEmoji(data);
 
     if (data.isSleeping) {
-      avatar.textContent = '💤';
+      this.renderSpriteToElement(avatar, '💤');
       avatar.classList.add('anim-sleep');
       this.setStatusMessage('Dodo... 💤', '#7f8c8d');
       this.toggleButtons(true);
       if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '☀️<br>Réveil';
     } else if (data.faim <= 0 || data.joie <= 0) {
-      avatar.textContent = currentEmoji;
+      this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add('anim-shake');
       this.setStatusMessage('🚨 Au secours !', '#c0392b');
       this.toggleButtons(false);
       if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '🛏️<br>Dormir';
     } else if (data.faim <= 25 || data.joie <= 25) {
-      avatar.textContent = currentEmoji;
+      this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add('anim-shake');
       this.setStatusMessage("J'ai besoin de toi !", '#e74c3c');
       this.toggleButtons(false);
       if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '🛏️<br>Dormir';
     } else {
-      avatar.textContent = currentEmoji;
+      this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add(data.isShiny && data.niveau >= 5 ? 'anim-shiny' : 'anim-idle');
       this.setStatusMessage(data.isShiny ? '✨ Shiny ✨' : '', '#f1c40f');
       this.toggleButtons(false);

@@ -384,7 +384,8 @@ class MinigamesController {
     if (this.jumpPlayer) {
       this.jumpPlayer.classList.remove('jumping');
       const sp = SPECIES_DATA.find(s => s.id === stateManager.data.species);
-      this.jumpPlayer.textContent = sp ? sp.emojis[0] : '🥚';
+      const playerSprite = sp ? sp.emojis[0] : '🥚';
+      ui.renderSpriteToElement(this.jumpPlayer, playerSprite);
     }
     if (this.jumpObstacle) {
       this.jumpObstacle.style.left = '300px';

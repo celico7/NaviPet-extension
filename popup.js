@@ -233,9 +233,9 @@ class AppController {
     const sp = SPECIES_DATA[this.currentSpeciesIndex];
     const sliderAvatar = document.getElementById('slider-avatar');
     const speciesNameEl = document.getElementById('species-name');
-    
+
     if (sliderAvatar) {
-      sliderAvatar.textContent = sp.emojis[0];
+      ui.renderSpriteToElement(sliderAvatar, sp.emojis[0]);
       sliderAvatar.classList.remove('anim-idle');
       void sliderAvatar.offsetWidth; // Trigger reflow
       sliderAvatar.classList.add('anim-idle');
