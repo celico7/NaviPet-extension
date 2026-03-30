@@ -4,10 +4,10 @@
 
 export const SPECIES_DATA = [
   { id: 'dragon', name: 'Dragon',  emojis: ['assets/sprites/pets/egg.png', '🦎', '🐉', '🐉', '🐉', '🐉'],  shiny: '✨🐉' },
-  { id: 'dog',    name: 'Chien',   emojis: ['🐶', '🐕', '🐕', '🐕', '🐕', '🐕'],   shiny: '⭐🐕' },
-  { id: 'cat',    name: 'Chat',    emojis: ['🐱', '🐈', '🐈', '🐈', '🐈', '🐈'],   shiny: '💫🐈' },
-  { id: 'robot',  name: 'Robot',   emojis: ['📦', '🤖', '👾', '👾', '👾', '👾'],   shiny: '🌟👾' },
-  { id: 'plant',  name: 'Plante',  emojis: ['🌱', '🌿', '🪴', '🌳', '🌳', '🌸'],  shiny: '🌟🌸' }
+  { id: 'dog',    name: 'Chien',   emojis: ['assets/sprites/pets/chiot.png', '🐕', '🐕', '🐕', '🐕', '🐕'],   shiny: '⭐🐕' },
+  { id: 'cat',    name: 'Chat',    emojis: ['assets/sprites/pets/kitty.png', '🐈', '🐈', '🐈', '🐈', '🐈'],   shiny: '💫🐈' },
+  { id: 'robot',  name: 'Robot',   emojis: ['assets/sprites/pets/robot-box.png', '🤖', '👾', '👾', '👾', '👾'],   shiny: '🌟👾' },
+  { id: 'plant',  name: 'Plante',  emojis: ['assets/sprites/pets/pousse.png', '🌿', '🪴', '🌳', '🌳', '🌸'],  shiny: '🌟🌸' }
 ];
 
 export const XP_PER_LEVEL   = 100;
