@@ -1,4 +1,4 @@
-# NaviPet - Ton Compagnon Virtuel de Développement
+﻿# NaviPet - Ton Compagnon Virtuel de Développement
 
 NaviPet est une extension Chrome interactive sous la forme d'un petit animal de compagnie virtuel (façon Tamagotchi) qui vit dans ton navigateur. Prends soin de lui, joue à des mini-jeux, personnalise-le et reste concentré pendant tes sessions de code !
 *Les emojis vont être remplacés par des sprites dans le futur!*
@@ -44,3 +44,5 @@ Pour modifier le code :
 3. *Note :* Si tu modifies le `manifest.json`, pense à bien recharger l'extension via la page Web `chrome://extensions/` (icône petite flèche qui tourne circulaire).
 
 <img src="navipet.png"/>
+## Crédits & Ressources
+* **Palette de Couleurs :** [Endesga 32](https://lospec.com/palette-list/endesga-32) par ENDESGA. Utilisée sous licence libre pour unifier l'identité graphique du jeu et des sprites.

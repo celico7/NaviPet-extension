@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // --- CONSTANTES & DONNEES ---
 // ============================================================
 
@@ -24,7 +24,7 @@ export const SHOP_BACKGROUNDS = [
 ];
 
 export const SHOP_FOOD = [
-  { id: 'food-apple',  name: 'Pomme',           price: 5,  icon: '🍎', faim: +35, joie: 0,   energie: -2,  desc: 'Le classique' },
+  { id: 'food-apple',  name: 'Pomme',           price: 5,  icon: 'assets/sprites/shop/apple.png', faim: +35, joie: 0,   energie: -2,  desc: 'Le classique' },
   { id: 'food-pizza',  name: 'Pizza',           price: 15, icon: '🍕', faim: +60, joie: +10, energie: -3,  desc: '+10 Joie bonus !' },
   { id: 'food-sushi',  name: 'Sushi',           price: 20, icon: '🍣', faim: +50, joie: +15, energie: +5,  desc: '+5 Énergie bonus !' },
   { id: 'food-ramen',  name: 'Ramen',           price: 25, icon: '🍜', faim: +70, joie: +5,  energie: +10, desc: 'Très nourrissant !' },

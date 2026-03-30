@@ -165,6 +165,13 @@ class UIController {
     return sp.emojis[5] || sp.emojis[sp.emojis.length - 1];
   }
 
+  getSpriteHtml(content, size = '1em') {
+    if (content && (content.endsWith('.png') || content.endsWith('.gif'))) {
+      return `<img src="${content}" style="width:${size}; height:${size}; object-fit:contain; image-rendering:pixelated; vertical-align:middle;" draggable="false"/>`;
+    }
+    return content;
+  }
+
   renderSpriteToElement(element, content) {
     if (!element) return;
     if (content && (content.endsWith('.png') || content.endsWith('.gif'))) {
@@ -251,12 +258,14 @@ class UIController {
     }, 500);
   }
 
-  spawnParticle(emoji, x = null, y = null) {
+  spawnParticle(spriteOrEmoji, x = null, y = null) {
     if (!this.elements.screenArea) return;
     const p = document.createElement('div');
     p.className = 'particle';
-    p.textContent = emoji;
     
+    // Support image sprite or emoji
+    p.innerHTML = this.getSpriteHtml(spriteOrEmoji, '24px');
+
     if (x !== null && y !== null) {
       const rect = this.elements.screenArea.getBoundingClientRect();
       p.style.left = `${x - rect.left - 10}px`;

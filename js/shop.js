@@ -177,7 +177,7 @@ class ShopController {
     div.style.cssText = `display:flex;justify-content:space-between;align-items:center;padding:10px;background-color:${bgColor};border:2px solid var(--border-color);border-radius:5px;gap:8px;`;
     const info = document.createElement('div');
     info.style.cssText = 'text-align:left;font-size:9px;flex-grow:1;';
-    info.innerHTML = `<span style="font-size:18px;">${icon}</span><br>${label}`;
+    info.innerHTML = `<span style="font-size:18px;">${ui.getSpriteHtml(icon, '24px')}</span><br>${label}`;
     div.appendChild(info);
     return div;
   }
@@ -206,7 +206,7 @@ class ShopController {
         hasItems = true;
         const btn = document.createElement('button');
         btn.className = 'action-btn';
-        btn.innerHTML = `<span style="font-size:16px;">${foodItem.icon}</span><br><span style="font-size:8px;">x${count}</span>`;
+        btn.innerHTML = `<span style="font-size:16px;">${ui.getSpriteHtml(foodItem.icon, '20px')}</span><br><span style="font-size:8px;">x${count}</span>`;
         btn.style.cssText = 'padding:5px; gap:2px; height:50px;';
         
         btn.onclick = () => {
@@ -218,7 +218,7 @@ class ShopController {
             
             ui.spawnParticle(foodItem.icon);
             ui.triggerAnimation('anim-eat');
-            ui.showMessage(`${foodItem.icon} Miam !`, '#2ecc71');
+            ui.showMessage(`Miam !`, '#2ecc71');
             stateManager.notify();
             
             // Émettre un événement personnalisé pour déclencher la quête
@@ -227,7 +227,7 @@ class ShopController {
             if (data.inventory[foodItem.id] <= 0) {
               this.renderInventory();
             } else {
-              btn.innerHTML = `<span style="font-size:16px;">${foodItem.icon}</span><br><span style="font-size:8px;">x${data.inventory[foodItem.id]}</span>`;
+              btn.innerHTML = `<span style="font-size:16px;">${ui.getSpriteHtml(foodItem.icon, '20px')}</span><br><span style="font-size:8px;">x${data.inventory[foodItem.id]}</span>`;
             }
           }
         };
