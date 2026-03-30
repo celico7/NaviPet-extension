@@ -22,10 +22,18 @@ class PetState {
       chrome.storage.local.get(['naviState'], (result) => {
         if (result.naviState && result.naviState.isAdopted) {
           this.data = { ...DEFAULT_STATE, ...result.naviState };
+          
+          // Réveil automatique si mis en veille par l'AFK Chrome
+          if (this.data.isSleeping && this.data.autoSleeping) {
+            this.data.isSleeping = false;
+            this.data.autoSleeping = false;
+          }
+
           this.processOfflineDecay();
         } else {
           this.data = { ...DEFAULT_STATE };
         }
+        setTimeout(() => this.notify(), 0); // Évite de bloquer la boucle Promise
         resolve(this.data);
       });
     });

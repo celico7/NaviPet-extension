@@ -128,6 +128,7 @@ class MinigamesController {
     if (this.mgSpawnInterval) clearInterval(this.mgSpawnInterval);
     if (this.memoryTimerInterval) clearInterval(this.memoryTimerInterval);
     if (this.jumpLoop) cancelAnimationFrame(this.jumpLoop);
+    if (this.endTimeout) clearTimeout(this.endTimeout);
   }
 
   // ==========================================
@@ -193,9 +194,8 @@ class MinigamesController {
     stateManager.updateStat('joie', 15);
     stateManager.notify();
     
-    setTimeout(() => {
+    this.endTimeout = setTimeout(() => {
       this.openArcadeMenu();
-      if (coinsWon > 0) ui.showMessage(`+${coinsWon} 🪙 gagnés !`, '#f1c40f');
     }, 2500);
   }
 
@@ -244,7 +244,7 @@ class MinigamesController {
           this.memoryStatus.textContent = 'Temps écoulé ! ⏳';
           this.memoryStatus.style.color = '#e74c3c';
         }
-        setTimeout(() => this.openArcadeMenu(), 2000);
+        this.endTimeout = setTimeout(() => this.openArcadeMenu(), 2000);
       }
     }, 1000);
   }
@@ -300,9 +300,8 @@ class MinigamesController {
     stateManager.updateStat('energie', -15);
     stateManager.notify();
     
-    setTimeout(() => { 
-      this.openArcadeMenu(); 
-      ui.showMessage(`+${coinsWon} 🪙 !`, '#f1c40f'); 
+    this.endTimeout = setTimeout(() => {
+      this.openArcadeMenu();
     }, 2500);
   }
 
