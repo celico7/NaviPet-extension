@@ -92,10 +92,9 @@ class AppController {
       const data = stateManager.data;
       if (!data.isAdopted) return;
       if (data.isSleeping) { 
-        ui.spawnParticle('💤', e.clientX, e.clientY); 
-        return; 
+        ui.spawnParticle('assets/sprites/ui/sleep.png', e.clientX, e.clientY);
+        return;
       }
-      
       stateManager.updateStat('joie', 2);
       stateManager.addXp(5);
       
@@ -155,10 +154,10 @@ class AppController {
       const data = stateManager.data;
       data.isSleeping = !data.isSleeping;
       if (!data.isSleeping) { 
-        ui.spawnParticle('☀️'); 
-        ui.showMessage('Bonjour !', '#2ecc71'); 
-      } else { 
-        ui.spawnParticle('💤'); 
+        ui.spawnParticle('☀️');
+        ui.showMessage('Bonjour !', '#2ecc71');
+      } else {
+        ui.spawnParticle('assets/sprites/ui/sleep.png');
       }
       stateManager.notify();
     });

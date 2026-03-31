@@ -193,9 +193,9 @@ class UIController {
     const currentEmoji = this.getAvatarEmoji(data);
 
     if (data.isSleeping) {
-      this.renderSpriteToElement(avatar, '💤');
+      this.renderSpriteToElement(avatar, 'assets/sprites/ui/sleep.png');
       avatar.classList.add('anim-sleep');
-      this.setStatusMessage('Dodo... 💤', '#7f8c8d');
+      this.setStatusMessage(`Dodo... ${this.getSpriteHtml('assets/sprites/ui/sleep.png', '12px')}`, '#7f8c8d');
       this.toggleButtons(true);
       if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '☀️<br>Réveil';
     } else if (data.faim <= 0 || data.joie <= 0) {
