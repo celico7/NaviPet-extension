@@ -39,7 +39,9 @@
       <div class="header-right">
         <div class="coins-line"><img src="assets/sprites/shop/devcoins.png" alt="Coins" style="width: 40px; height: 40px; image-rendering: pixelated; vertical-align: middle;"> <span id="coins-display">0</span></div>
         <div class="coins-label">DevCoins</div>
-        <button id="btn-quests" class="btn-quests-style" title="Défis Journaliers">📜</button>
+        <button id="btn-quests" class="btn-quests-style" title="Défis Journaliers">
+          <img src="assets/sprites/ui/quest.png" alt="Quêtes" style="width: 24px; height: 24px; image-rendering: pixelated; vertical-align: middle;">
+        </button>
       </div>
     </div>
 
@@ -78,7 +80,7 @@
       <button id="btn-play"  class="action-btn"><img src="assets/sprites/ui/playball.png" alt="Balle" style="width: 22px; height: 22px; image-rendering: pixelated; vertical-align: middle;"><br>Jouer</button>
       <button id="btn-sleep" class="action-btn">🛏️<br>Dormir</button>
       <button id="btn-arcade" class="action-btn arcade">🎮<br>Arcade</button>
-      <button id="btn-shop"  class="action-btn btn-shop-style">🛒<br>Boutique</button>
+      <button id="btn-shop"  class="action-btn btn-shop-style"><img src="assets/sprites/ui/cadit.png" alt="Boutique" style="width: 22px; height: 22px; image-rendering: pixelated; vertical-align: middle;"><br>Boutique</button>
     </div>
 
     <!-- Zone Inventaire Nourriture (remplace les boutons) -->
@@ -91,14 +93,14 @@
         <!-- Items générés ici -->
       </div>
       <div id="inventory-empty" class="inventory-empty">
-        Vide ! Va à la boutique 🛒
+        Vide ! Va à la boutique <img src="assets/sprites/ui/cadit.png" alt="Boutique" style="width: 16px; height: 16px; image-rendering: pixelated; vertical-align: middle;">
       </div>
     </div>
   </div>
 
   <!-- ======================== BOUTIQUE ======================== -->
   <div id="shop-screen" class="hidden">
-    <h2 class="shop-title">🛒 Boutique</h2>
+    <h2 class="shop-title"><img src="assets/sprites/ui/cadit.png" alt="Boutique" style="width: 24px; height: 24px; image-rendering: pixelated; vertical-align: middle;"> Boutique</h2>
     <div class="shop-solde">Solde : <span id="shop-coins">0</span> 🪙</div>
     <div class="shop-tabs">
       <button id="shop-tab-bgs"  class="shop-tab tab-active">🏞️ Décors</button>
@@ -193,7 +195,7 @@
 
   <!-- ======================== QUÊTES ======================== -->
   <div id="quests-screen" class="hidden">
-    <h2 class="quests-title">📜 Défis du jour</h2>
+    <h2 class="quests-title"><img src="assets/sprites/ui/quest.png" alt="Quêtes" style="width: 24px; height: 24px; image-rendering: pixelated; vertical-align: middle;"> Défis du jour</h2>
     <div class="quests-subtitle">Reset à minuit</div>
     <div id="quests-list">
       <!-- Liste des quêtes ici -->
