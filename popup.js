@@ -118,7 +118,7 @@ class AppController {
       stateManager.updateStat('joie', -5);
       data.coins += 10;
       
-      ui.spawnParticle('💻'); 
+      ui.spawnParticle('assets/sprites/ui/computer.png'); 
       ui.triggerAnimation('anim-idle'); 
       ui.showMessage('+10 DevCoins 🪙', '#f1c40f');
       stateManager.notify();

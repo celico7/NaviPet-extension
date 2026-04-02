@@ -1,4 +1,4 @@
-import { stateManager } from './state.js';
+﻿import { stateManager } from './state.js';
 import { SPECIES_DATA, SHOP_BACKGROUNDS, SHOP_ACCESSORIES, XP_PER_LEVEL } from './constants.js';
 
 class UIController {
@@ -203,19 +203,19 @@ class UIController {
       avatar.classList.add('anim-shake');
       this.setStatusMessage('🚨 Au secours !', '#c0392b');
       this.toggleButtons(false);
-      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '🛏️<br>Dormir';
+      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '<img src="assets/sprites/ui/bed.png" alt="Dormir" style="width: 32px; height: 32px; image-rendering: pixelated; vertical-align: middle;"><br>Dormir';
     } else if (data.faim <= 25 || data.joie <= 25) {
       this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add('anim-shake');
       this.setStatusMessage("J'ai besoin de toi !", '#e74c3c');
       this.toggleButtons(false);
-      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '🛏️<br>Dormir';
+      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '<img src="assets/sprites/ui/bed.png" alt="Dormir" style="width: 32px; height: 32px; image-rendering: pixelated; vertical-align: middle;"><br>Dormir';
     } else {
       this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add(data.isShiny && data.niveau >= 5 ? 'anim-shiny' : 'anim-idle');
       this.setStatusMessage(data.isShiny ? '✨ Shiny ✨' : '', '#f1c40f');
       this.toggleButtons(false);
-      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '🛏️<br>Dormir';
+      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '<img src="assets/sprites/ui/bed.png" alt="Dormir" style="width: 32px; height: 32px; image-rendering: pixelated; vertical-align: middle;"><br>Dormir';
     }
   }
 
