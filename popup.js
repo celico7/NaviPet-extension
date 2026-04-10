@@ -315,8 +315,33 @@ class AppController {
        this.spawnDirt(area);
     }
     
-    // Spawn progressif en restant ouvert (1 chance % toutes les 25s)
+    // Vérification initiale : si vraiment sale à l'ouverture, baisser la joie
+    setTimeout(() => {
+      const initialStains = area.querySelectorAll('.dirt-stain').length;
+      if (initialStains >= 3) {
+         stateManager.updateStat('joie', -(initialStains * 2));
+         ui.showMessage(`Eww... il y a des taches partout !`, '#e74c3c', 4000);
+         stateManager.notify();
+      }
+    }, 1000);
+
+    // Spawn progressif en restant ouvert + Check de propreté
     setInterval(() => {
+      const currentStains = area.querySelectorAll('.dirt-stain').length;
+      
+      // Impact négatif : plus c'est sale, plus la joie descend
+      if (currentStains >= 2) {
+        // Enlève 1 de joie pour 2 taches, 2 pour 4 taches, etc.
+        const penalty = Math.floor(currentStains / 2);
+        stateManager.updateStat('joie', -penalty);
+        
+        if (currentStains >= 4 && Math.random() < 0.5) {
+          ui.showMessage(`Je me sens mal, nettoie un peu stp...`, '#e74c3c', 3500);
+        }
+        stateManager.notify();
+      }
+
+      // Apparition aléatoire d'une nouvelle tache (1 chance sur 4)
       if (Math.random() < 0.25) {
         this.spawnDirt(area);
       }
@@ -359,16 +384,25 @@ class AppController {
       
       pressTimer = setTimeout(() => {
         isCleaning = true;
+        const coinsWon = Math.random() > 0.5 ? 2 : 1;
+        
+        // Obtenir la position relative dans la zone pour la particule DEVCOIN avant supprimer
+        const coinParticle = document.createElement('div');
+        coinParticle.className = 'particle';
+        coinParticle.innerHTML = `<span style="font-size:16px; font-weight:bold; color:#f1c40f; text-shadow: 1px 1px 0 #000;">+${coinsWon}</span> <img src="assets/sprites/shop/devcoins.png" style="width:24px; height:24px; image-rendering:pixelated; vertical-align:middle;">`;
+        coinParticle.style.left = dirt.style.left;
+        coinParticle.style.top = parseInt(dirt.style.top) - 10 + '%';
+        coinParticle.style.zIndex = '20';
+        area.appendChild(coinParticle);
+        setTimeout(() => coinParticle.remove(), 1000);
+
         dirt.remove();
         
-        // Gain 1 ou 2 pieces
-        const coinsWon = Math.random() > 0.5 ? 2 : 1;
         stateManager.data.coins += coinsWon;
         stateManager.data.xp += 2; // Petite récompense d'expérience
         
-        // Afficher plus longtemps le message
-        ui.showMessage(`Nettoyé ! +${coinsWon} 🪙`, '#f1c40f', 3500);
         if (typeof ui.spawnParticle === 'function') {
+          // Particule bonus au centre du pet (optionnel)
           ui.spawnParticle('✨');
         }
         

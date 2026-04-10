@@ -1,12 +1,12 @@
 ﻿# NaviPet - Ton Compagnon Virtuel de Développement
 
 NaviPet est une extension Chrome interactive sous la forme d'un petit animal de compagnie virtuel (façon Tamagotchi) qui vit dans ton navigateur. Prends soin de lui, joue à des mini-jeux, personnalise-le et reste concentré pendant tes sessions de code !
-*Les emojis vont être remplacés par des sprites dans le futur!*
+*(Transition majeure en cours: remplacement de tous les emojis par des pixel arts)*
 
 ## ✨ Fonctionnalités Principales
 
 *   **Gestion Complète des Besoins :** Gère la Faim, la Joie et l'Énergie de ton compagnon. L'avancée et le vieillissement continuent même quand le navigateur est éteint grâce à une gestion de timestamps !
-*   **Boutique & Inventaire :** Dépense tes DevCoins durement gagnés pour acheter de la nourriture, débloquer des décors, ou équiper des accessoires sur ton pet.
+*   **Boutique & Inventaire Amélioré :** Dépense tes DevCoins gagnés pour acheter de la nourriture, débloquer des décors, ou équiper des accessoires sur ton pet. 
 *   **Salle d'Arcade :** Gagne de l'argent en jouant :
     *   *Chasse aux Bugs :* Écrase un max de bugs avant la fin du temps imparti (15s) !
     *   *Memory :* Retrouve toutes les paires avant la fin du timer (45s).
@@ -15,6 +15,7 @@ NaviPet est une extension Chrome interactive sous la forme d'un petit animal de 
 *   **Notifications Configurables :** Choisis d'activer ou désactiver les alertes directement dans l'extension via le bouton "cloche" (utilise les API optionnelles de Chrome pour le respect de la vie privée).
 *   **Mode Focus (Pomodoro) :** Lance un minuteur de concentration pour travailler sans distraction. Pendant ce temps, ton compagnon gagne de l'XP et accumule des paliers !
 *   **Quêtes Journalières :** Complète des objectifs spécifiques chaque jour (Reset automatique à minuit) pour gagner de belles récompenses (XP, Coins).
+*   **Nettoyage & Propreté :** Au fil du temps, des saletés (taches) apparaissent dans la pièce de ton compagnon. Garde le clic enfoncé sur les taches pour nettoyer sa zone et gagner des DevCoins aléatoires ! Attention, si tu laisses la pièce devenir trop sale, ton familier commencera à se plaindre et sa jauge de Joie descendra rapidement.
 *   **Cycle Jour / Nuit :** Thème de l'interface dynamique qui change selon ton heure locale.
 
 ## 🏗️ Architecture Technique (Clean Code)

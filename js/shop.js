@@ -105,23 +105,6 @@ class ShopController {
   }
 
   renderFood(data) {
-    const invDiv = document.createElement('div');
-    invDiv.style.cssText = 'background:var(--panel-bg); padding:5px; border-radius:5px; border:2px solid var(--border-color); margin-bottom:10px; font-size:8px; text-align:center;';
-    let invHtml = '<div style="color:#2ecc71; margin-bottom:5px; font-size:9px;">🎒 Ton Inventaire:</div>';
-    let ownedItems = 0;
-    SHOP_FOOD.forEach(f => {
-      const count = data.inventory && data.inventory[f.id] ? data.inventory[f.id] : 0;
-      if (count > 0) {
-        ownedItems++;
-        let srcMatch = f.icon.match(/src="([^"]+)"/);
-        let src = srcMatch ? srcMatch[1] : f.icon;
-        invHtml += `<span style="display:inline-block; margin-right:8px; margin-bottom:5px;"><img src="${src}" style="width:16px;height:16px;image-rendering:pixelated;vertical-align:middle;"> x${count}</span>`;
-      }
-    });
-    if (ownedItems === 0) invHtml += '<span style="opacity:0.6;">Vide. Achète pour remplir !</span>';
-    invDiv.innerHTML = invHtml;
-    this.shopItemsContainer.appendChild(invDiv);
-    
     SHOP_FOOD.forEach(item => {
       const isOwned = (data.inventory && data.inventory[item.id] > 0);
       const inventoryText = isOwned ? `<br><span style="color:#2ecc71;">Possédé: ${data.inventory[item.id]}</span>` : '';

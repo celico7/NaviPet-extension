@@ -86,12 +86,12 @@ body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1p
 .btn-shop-style { background-color: #ffeab0; color: #262b44; border-color: #f39c12; }
 
 /* INVENTORY */
-.inventory-panel { padding: 10px; background-color: var(--panel-bg); }
-.inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.inventory-title { font-size: 10px; color: var(--text-color); }
+.inventory-panel { padding: 15px; margin: 15px; background-color: #ffffff; border-radius: 10px; border: 2px solid var(--border-color); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+.inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.inventory-title { font-size: 10px; color: #262b44; font-weight: bold; }
 .btn-close-inv { padding: 5px; font-size: 8px; }
-.inventory-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-height: 80px; overflow-y: auto; }
-.inventory-empty { font-size: 8px; color: var(--border-color); text-align: center; display: none; padding: 10px 0; }
+.inventory-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: none; overflow: visible; }
+.inventory-empty { font-size: 8px; color: #6c7a89; text-align: center; display: none; padding: 10px 0; }
 
 /* BOUTIQUE */
 #shop-screen { display: flex; flex-direction: column; min-height: 480px; padding-top: 20px; }
