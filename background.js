@@ -160,7 +160,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
       const hostname = url.hostname.replace('www.', '');
 
       for (const [domain, reactions] of Object.entries(TAB_REACTIONS)) {
-        if (hostname.includes(domain)) {
+        if (hostname === domain || hostname.endsWith('.' + domain)) {
           const reaction = reactions[Math.floor(Math.random() * reactions.length)];
           // Envoyer la réaction à la popup si elle est ouverte
           chrome.runtime.sendMessage({ type: 'TAB_REACTION', message: reaction }).catch(() => {

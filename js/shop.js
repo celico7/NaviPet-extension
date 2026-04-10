@@ -179,7 +179,7 @@ class ShopController {
 
   createShopBtn() {
     const btn = document.createElement('button');
-    btn.style.cssText = 'font-family:inherit;font-size:8px;padding:8px;cursor:pointer;border-radius:3px;border:1px solid rgba(0,0,0,0.2);white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;';
+    btn.className = 'shop-item-btn';
     return btn;
   }
 

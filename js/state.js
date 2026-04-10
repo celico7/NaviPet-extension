@@ -69,6 +69,7 @@ class PetState {
         this.updateStat('joie', -cycles * DECAY_AMOUNT);
         this.updateStat('energie', -cycles * 2);
       }
+      this.data.lastSaved = now;
     }
   }
 
