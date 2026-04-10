@@ -132,20 +132,17 @@ function sendNotification(title, message, type) {
 // --- RÉACTION AUX ONGLETS ---
 // Le pet commente les sites visités !
 const TAB_REACTIONS = {
-  'github.com': ['Encore GitHub... 🐙', 'Du code à déboguer ? 👀', 'Push tes commits ! 💪'],
-  'youtube.com': ['Une vidéo au lieu de bosser ? 😏', 'Netflix du pauvre... 🎬', 'Allez, juste une ! 🍿'],
-  'stackoverflow.com': ['Le vrai bouton "Résoudre" 😂', 'Stack Overflow saves lives ! 🦸', 'Copier-coller en mode pro 📋'],
-  'twitter.com': ['Twitter... vraiment ? 🐦', 'Scrolling infini activé 📜', 'X, pardon... 😅'],
-  'x.com': ['Twitter... vraiment ? 🐦', 'Scrolling infini activé 📜', 'Les tweets ne nourrissent pas ! 😤'],
-  'reddit.com': ['🕳️ Le trou noir du temps...', 'r/procrastination en direct 😅', 'Juste un subreddit... juste un... 👀'],
-  'twitch.tv': ['Stream au lieu de bosser ! 🎮', 'PogChamp !', 'Le vrai gaming...'],
-  'chat.openai.com': ['Un autre IA ? 😤 Jaloux !', 'Tu me trompes ? 😢', 'Je vaux mieux que GPT !'],
-  'claude.ai': ['C\'est moi ! Coucou ! 👋', 'Tu parles à claude ce fou', 'NaviPet chez Anthropic ! 🤖'],
-  'leetcode.com': ['Bon courage... 🧠', 'En mode interview 💼', 'Two Sum encore ? 😴'],
-  'figma.com': ['Pixel perfect ! 🎨', 'Design mode ON 🖌️', 'Les designers aussi ont des bugs 🐛'],
-  'notion.so': ['Productivity mode 📝', 'Encore une nouvelle page ?', 'Notion > tout 📚'],
-  'discord.com': ['On discute au lieu de bosser ? 💬', 'Ping ! 🔔', 'La vraie réunion d\'équipe 😄'],
-  'netflix.com': ['Sérieusement Netflix ? 🎭', 'Juste un épisode... 🍿', 'Bon film du moins ! 🎬'],
+  'github.com': ['Encore GitHub...', 'Du code à déboguer ?', 'Push tes commits !!'],
+  'youtube.com': ['Une vidéo au lieu de bosser ?', 'Netflix du pauvre...', 'Tu regardes quoi ?'],
+  'twitter.com': ['Twitter... vraiment ?', 'Deep scrolling activé', 'Tu fais quoi sur twitter ???'],
+  'x.com': ['Twitter... vraiment ?', 'Tu fais quoi sur twitter ???', 'Les tweets ne nourrissent pas !'],
+  'reddit.com': ['Reddit ? pff...', 'r/procrastination en direct', 'Juste un subreddit... juste un...'],
+  'twitch.tv': ['Stream au lieu de bosser !', 'PogChamp !', 'Le vrai gaming...'],
+  'chat.openai.com': ['Un autre IA ? Jaloux !', 'Tu me trompes ?', 'Je vaux mieux que GPT !'],
+  'claude.ai': ['Claude Senpai ?', 'Tu parles à claude ce fou', 'NaviPet chez Anthropic !'],
+  'figma.com': ['Pixel perfect ! ', 'Design mode ON', 'Les designers aussi ont des bugs'],
+  'discord.com': ['On discute au lieu de bosser ?', 'Ping !', 'Discord sur le web ?'],
+  'netflix.com': ['Sérieusement Netflix ?', 'Juste un épisode... ', 'Un bon film j\'espere !'],
 };
 
 let lastTabReaction = 0;

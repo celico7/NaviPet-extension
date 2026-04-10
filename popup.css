@@ -96,8 +96,10 @@ body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1p
 /* BOUTIQUE */
 #shop-screen { display: flex; flex-direction: column; min-height: 480px; padding-top: 20px; }
 .shop-title { color: #ffeab0; margin-top: 0; font-size: 14px; }
-.shop-solde { font-size: 9px; margin-bottom: 10px; color: var(--text-color); }
-#shop-coins { color: #ffeab0; font-size: 12px; }
+.shop-solde { font-size: 14px; margin-bottom: 10px; color: var(--text-color); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.devcoin-icon { width: 20px; height: 20px; image-rendering: pixelated; vertical-align: middle; }
+.shop-solde .devcoin-icon { width: 30px; height: 30px; }
+#shop-coins { color: #ffeab0; font-size: 18px; font-weight: bold; }
 .shop-tabs { display:flex; gap:5px; margin:0 15px 10px 15px; }
 .shop-tab { flex:1; padding:8px 4px; font-family:inherit; font-size:7px; cursor:pointer; border:2px solid var(--border-color); border-radius:5px; background:var(--panel-bg); color:var(--text-color); }
 .shop-tab.tab-active { background:#ffeab0; color:#262b44; border-color:#f39c12; }

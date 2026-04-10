@@ -86,7 +86,7 @@ class ShopController {
           this.renderShopTab(); 
         };
       } else {
-        btn.textContent = `${item.price} 🪙`;
+        btn.innerHTML = `${item.price} <img src="assets/sprites/shop/devcoins.png" class="devcoin-icon">`;
         btn.style.background = data.coins >= item.price ? '#f1c40f' : '#bdc3c7';
         btn.disabled = data.coins < item.price;
         btn.onclick = () => {
@@ -111,7 +111,7 @@ class ShopController {
       const div = this.createShopRow(item.icon, `${item.name} — ${item.desc}${inventoryText}`, 'var(--panel-bg)');
       const btn = this.createShopBtn();
       
-      btn.textContent = `${item.price} 🪙`;
+      btn.innerHTML = `${item.price} <img src="assets/sprites/shop/devcoins.png" class="devcoin-icon">`;
       btn.style.background = data.coins >= item.price ? '#2ecc71' : '#bdc3c7';
       btn.style.color = 'white'; 
       btn.disabled = data.coins < item.price;
@@ -149,7 +149,7 @@ class ShopController {
           this.renderShopTab(); 
         };
       } else {
-        btn.textContent = `${item.price} 🪙`;
+        btn.innerHTML = `${item.price} <img src="assets/sprites/shop/devcoins.png" class="devcoin-icon">`;
         btn.style.background = data.coins >= item.price ? '#f1c40f' : '#bdc3c7';
         btn.disabled = data.coins < item.price;
         btn.onclick = () => {
@@ -179,7 +179,7 @@ class ShopController {
 
   createShopBtn() {
     const btn = document.createElement('button');
-    btn.style.cssText = 'font-family:inherit;font-size:8px;padding:8px;cursor:pointer;border-radius:3px;border:1px solid rgba(0,0,0,0.2);white-space:nowrap;';
+    btn.style.cssText = 'font-family:inherit;font-size:8px;padding:8px;cursor:pointer;border-radius:3px;border:1px solid rgba(0,0,0,0.2);white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;';
     return btn;
   }
 
