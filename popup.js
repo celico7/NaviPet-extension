@@ -346,14 +346,19 @@ class AppController {
     setTimeout(() => dirt.style.opacity = '1', 50); // Apparition en fondu grâce à CSS transition
 
     let isCleaning = false;
-    dirt.addEventListener('click', (e) => {
+    let pressTimer = null;
+    
+    const startClean = (e) => {
       e.stopPropagation();
       if (isCleaning) return;
-      isCleaning = true;
       
-      dirt.classList.add('cleaning');
+      // Lancer visuellement le nettoyage
+      dirt.style.transition = 'transform 1s linear, opacity 1s linear';
+      dirt.style.transform = 'scale(0.1) rotate(-180deg)';
+      dirt.style.opacity = '0.3';
       
-      setTimeout(() => {
+      pressTimer = setTimeout(() => {
+        isCleaning = true;
         dirt.remove();
         
         // Gain 1 ou 2 pieces
@@ -361,14 +366,35 @@ class AppController {
         stateManager.data.coins += coinsWon;
         stateManager.data.xp += 2; // Petite récompense d'expérience
         
-        ui.showMessage(`Nettoyé ! +${coinsWon} 🪙`, '#f1c40f');
+        // Afficher plus longtemps le message
+        ui.showMessage(`Nettoyé ! +${coinsWon} 🪙`, '#f1c40f', 3500);
         if (typeof ui.spawnParticle === 'function') {
           ui.spawnParticle('✨');
         }
         
         stateManager.notify();
-      }, 200); // 200ms pour l'animation cleaning
-    });
+      }, 1000); // 1 seconde de clic maintenu pour nettoyer
+    };
+
+    const stopClean = () => {
+      if (isCleaning || !pressTimer) return;
+      clearTimeout(pressTimer);
+      pressTimer = null;
+      
+      // Annuler : revenir à la taille normale s'il a lâché avant
+      dirt.style.transition = 'transform 0.2s ease-out, opacity 0.3s ease-out';
+      dirt.style.transform = `scale(${scale})`;
+      dirt.style.opacity = '1';
+    };
+
+    // Support Souris & Tactile
+    dirt.addEventListener('mousedown', startClean);
+    dirt.addEventListener('touchstart', startClean);
+    
+    // Si on relâche ou sort le curseur
+    dirt.addEventListener('mouseup', stopClean);
+    dirt.addEventListener('mouseleave', stopClean);
+    dirt.addEventListener('touchend', stopClean);
 
     area.appendChild(dirt);
   }
