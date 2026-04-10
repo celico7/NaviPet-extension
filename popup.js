@@ -30,6 +30,7 @@ class AppController {
       ui.updateMoodAura();
       this.listenForTabReactions();
       this.initFocusUI();
+      this.initDirtSystem();
       setInterval(() => ui.updateMoodAura(), 30000);
       
       // Vérifier si le background script a laissé une réaction en attente
@@ -76,6 +77,7 @@ class AppController {
       ui.applyTheme();
       ui.updateMoodAura();
       this.listenForTabReactions();
+      this.initDirtSystem();
       
       if (isShiny) {
         setTimeout(() => {
@@ -293,6 +295,82 @@ class AppController {
     if (focusText) {
       focusText.textContent = 'Mode Focus (25:00)';
     }
+  }
+
+  // --- SYSTEME DE SALISSURE ---
+  initDirtSystem() {
+    const area = document.getElementById('screen-area');
+    if (!area) return;
+
+    // Calculer les saletés basées sur le temps
+    const data = stateManager.data;
+    const now = Date.now();
+    const lastOpen = data.lastOpenTime || now;
+    const hoursElapsed = (now - lastOpen) / (1000 * 60 * 60);
+
+    // Max 5 taches au chargement, spawn basé sur le temps d'absence
+    const stainsToSpawn = Math.min(5, Math.floor(hoursElapsed / 2) + Math.floor(Math.random() * 2));
+    
+    for (let i = 0; i < stainsToSpawn; i++) {
+       this.spawnDirt(area);
+    }
+    
+    // Spawn progressif en restant ouvert (1 chance % toutes les 25s)
+    setInterval(() => {
+      if (Math.random() < 0.25) {
+        this.spawnDirt(area);
+      }
+    }, 25000);
+
+    // Sauvegarder l'heure d'ouverture pour la prochaine fois
+    data.lastOpenTime = now;
+    stateManager.notify();
+  }
+
+  spawnDirt(area) {
+    if (area.querySelectorAll('.dirt-stain').length >= 6) return; // Max 6 taches simultanées
+
+    const dirt = document.createElement('div');
+    dirt.className = 'dirt-stain';
+    
+    // Position aléatoire près du bas (où se trouve généralement le NaviPet)
+    const top = 40 + Math.random() * 50;  // 40% to 90% en hauteur
+    const left = 10 + Math.random() * 75; // 10% to 85% en largeur
+    
+    const scale = 0.6 + Math.random() * 0.9;
+    dirt.style.transform = `scale(${scale})`;
+    dirt.style.top = `${top}%`;
+    dirt.style.left = `${left}%`;
+    
+    dirt.style.opacity = '0';
+    setTimeout(() => dirt.style.opacity = '1', 50); // Apparition en fondu grâce à CSS transition
+
+    let isCleaning = false;
+    dirt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isCleaning) return;
+      isCleaning = true;
+      
+      dirt.classList.add('cleaning');
+      
+      setTimeout(() => {
+        dirt.remove();
+        
+        // Gain 1 ou 2 pieces
+        const coinsWon = Math.random() > 0.5 ? 2 : 1;
+        stateManager.data.coins += coinsWon;
+        stateManager.data.xp += 2; // Petite récompense d'expérience
+        
+        ui.showMessage(`Nettoyé ! +${coinsWon} 🪙`, '#f1c40f');
+        if (typeof ui.spawnParticle === 'function') {
+          ui.spawnParticle('✨');
+        }
+        
+        stateManager.notify();
+      }, 200); // 200ms pour l'animation cleaning
+    });
+
+    area.appendChild(dirt);
   }
 
   // --- MESSAGES BACKGROUND ---
