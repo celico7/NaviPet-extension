@@ -204,7 +204,7 @@ body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1p
 .bg-space   { background:radial-gradient(circle at bottom,#262b44 0%,#181425 100%); }
 
 /* ===== DIRT SYSTEM ===== */
-.dirt-stain { position: absolute; width: 35px; height: 25px; background: rgba(92, 58, 33, 0.85); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(1.5px); box-shadow: inset -3px -3px 6px rgba(50, 30, 20, 0.5), 0 0 4px rgba(92, 58, 33, 0.4); z-index: 5; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' style='font-size:24px'><text y='20'>🧽</text></svg>") 12 12, pointer; transition: transform 0.2s, opacity 0.3s; }
+.dirt-stain { position: absolute; width: 35px; height: 25px; background: rgba(92, 58, 33, 0.85); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(1.5px); box-shadow: inset -3px -3px 6px rgba(50, 30, 20, 0.5), 0 0 4px rgba(92, 58, 33, 0.4); z-index: 15; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' style='font-size:24px'><text y='20'>🧽</text></svg>") 12 12, pointer; transition: transform 0.2s, opacity 0.3s; }
 .dirt-stain:hover { transform: scale(1.15) rotate(5deg); background: rgba(92, 58, 33, 0.95); }
 .dirt-stain.cleaning { transform: scale(0.1) rotate(-20deg); opacity: 0; }
 

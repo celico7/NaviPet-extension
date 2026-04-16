@@ -65,6 +65,7 @@ class MinigamesController {
     this.jumpPlayer = document.getElementById('jump-player');
     this.jumpObstacle = document.getElementById('jump-obstacle');
     this.jumpScoreDisplay = document.getElementById('jump-score');
+    this.jumpHighScoreDisplay = document.getElementById('jump-highscore');
     this.btnJumpQuit = document.getElementById('btn-jump-quit');
   }
 
@@ -381,6 +382,7 @@ class MinigamesController {
     this.jumpSpeed = 4;
     this.obstaclePos = 280; // Viewport width
     if (this.jumpScoreDisplay) this.jumpScoreDisplay.textContent = '0';
+    if (this.jumpHighScoreDisplay) this.jumpHighScoreDisplay.textContent = stateManager.data.jumpHighScore || 0;
     if (this.jumpPlayer) {
       this.jumpPlayer.classList.remove('jumping');
       const sp = SPECIES_DATA.find(s => s.id === stateManager.data.species);
@@ -450,6 +452,14 @@ class MinigamesController {
     const coinsWon = Math.floor(this.jumpScore * 2);
     const data = stateManager.data;
     data.coins += coinsWon;
+    
+    // Check and save High Score
+    if (this.jumpScore > (data.jumpHighScore || 0)) {
+      data.jumpHighScore = this.jumpScore;
+      if (this.jumpHighScoreDisplay) this.jumpHighScoreDisplay.textContent = this.jumpScore;
+      ui.spawnParticle('🏆');
+    }
+
     stateManager.updateStat('joie', 15);
     stateManager.notify();
 

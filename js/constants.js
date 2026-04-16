@@ -55,6 +55,7 @@ export const DEFAULT_STATE = {
   niveau: 1,
   coins: 20,
   isSleeping: false,
+  jumpHighScore: 0,
   unlockedBackgrounds: ['bg-default'],
   currentBackground: 'bg-default',
   unlockedAccessories: ['acc-none', 'acc-pajama'],

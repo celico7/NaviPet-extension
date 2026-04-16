@@ -122,7 +122,7 @@ class ShopController {
           if (!data.inventory) data.inventory = {};
           data.inventory[item.id] = (data.inventory[item.id] || 0) + 1;
           stateManager.notify();
-          ui.showMessage(`+1 ${item.icon} (Acheté)`, '#f1c40f'); 
+          ui.showMessage(`+1 ${ui.getSpriteHtml(item.icon, '16px')} (Acheté)`, '#f1c40f'); 
           this.renderShopTab();
         }
       };
