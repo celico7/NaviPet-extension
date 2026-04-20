@@ -197,7 +197,7 @@ class UIController {
       avatar.classList.add('anim-sleep');
       this.setStatusMessage(`Dodo... ${this.getSpriteHtml('assets/sprites/ui/sleep.png', '12px')}`, '#7f8c8d');
       this.toggleButtons(true);
-      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '☀️<br>Réveil';
+      if (this.elements.btnSleep) this.elements.btnSleep.innerHTML = '<img src="assets/sprites/ui/sun.png" alt="Réveil" style="width: 32px; height: 32px; image-rendering: pixelated; vertical-align: middle;"><br>Réveil';
     } else if (data.faim <= 0 || data.joie <= 0) {
       this.renderSpriteToElement(avatar, currentEmoji);
       avatar.classList.add('anim-shake');

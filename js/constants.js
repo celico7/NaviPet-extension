@@ -18,7 +18,7 @@ export const MAX_STAT       = 100;
 export const SHOP_BACKGROUNDS = [
   { id: 'bg-default', name: 'Pièce Simple',      price: 0,   icon: 'assets/sprites/shop/house.png', extraHtml: '' },
   { id: 'bg-forest',  name: 'Forêt Magique',     price: 50,  icon: 'assets/sprites/shop/tree.png', extraHtml: '<div style="position:absolute;bottom:5px;left:10px;font-size:24px;pointer-events:none;">🍄</div><div style="position:absolute;bottom:5px;right:15px;font-size:32px;pointer-events:none;">🏕️</div><div style="position:absolute;top:10px;right:30px;font-size:20px;pointer-events:none;opacity:0.7;">☁️</div>' },
-  { id: 'bg-beach',   name: 'Plage Ensoleillée', price: 100, icon: 'assets/sprites/shop/beach.png', extraHtml: '<div style="position:absolute;top:10px;right:10px;font-size:32px;pointer-events:none;">☀️</div><div style="position:absolute;bottom:5px;left:20px;font-size:28px;pointer-events:none;">🐚</div><div style="position:absolute;bottom:5px;right:20px;font-size:24px;pointer-events:none;">🦀</div>' },
+  { id: 'bg-beach',   name: 'Plage Ensoleillée', price: 100, icon: 'assets/sprites/shop/beach.png', extraHtml: '<div style="position:absolute;top:10px;right:10px;width:32px;height:32px;pointer-events:none;"><img src="assets/sprites/ui/sun.png" style="width:100%;height:100%;image-rendering:pixelated;vertical-align:top;"></div><div style="position:absolute;bottom:5px;left:20px;font-size:28px;pointer-events:none;">🐚</div><div style="position:absolute;bottom:5px;right:20px;font-size:24px;pointer-events:none;">🦀</div>' },
   { id: 'bg-hacker',  name: 'Bureau Hacker',     price: 150, icon: 'assets/sprites/ui/computer.png', extraHtml: '<div style="position:absolute;top:50%;left:5px;font-size:24px;pointer-events:none;">🖥️</div><div style="position:absolute;bottom:5px;right:10px;font-size:20px;pointer-events:none;">☕</div><div style="position:absolute;top:10px;left:20px;color:#2ecc71;font-size:10px;font-family:monospace;pointer-events:none;">>_ hello_world<br>>_ hack.sh</div>' },
   { id: 'bg-space',   name: 'Station Spatiale',  price: 300, icon: 'assets/sprites/shop/fusee.png', extraHtml: '<div style="position:absolute;top:15px;left:15px;font-size:24px;pointer-events:none;animation:bob 4s infinite;">🛸</div><div style="position:absolute;bottom:20px;right:20px;font-size:32px;pointer-events:none;">🪐</div><div style="position:absolute;top:30px;right:40px;font-size:12px;pointer-events:none;color:yellow;">⭐</div>' }
 ];
@@ -27,7 +27,7 @@ export const SHOP_FOOD = [
   { id: 'food-apple',  name: 'Pomme',           price: 5,  icon: 'assets/sprites/shop/apple.png', faim: +35, joie: 0,   energie: -2,  desc: 'Le classique' },
   { id: 'food-pizza',  name: 'Pizza',           price: 15, icon: 'assets/sprites/shop/pizza.png', faim: +60, joie: +10, energie: -3,  desc: '+10 Joie bonus !' },
   { id: 'food-sushi',  name: 'Sushi',           price: 20, icon: 'assets/sprites/shop/sushis.png', faim: +50, joie: +15, energie: +5,  desc: '+5 Énergie bonus !' },
-  { id: 'food-ramen',  name: 'Ramen',           price: 25, icon: '🍜', faim: +70, joie: +5,  energie: +10, desc: 'Très nourrissant !' },
+  { id: 'food-ramen',  name: 'Ramen',           price: 25, icon: 'assets/sprites/shop/ramen.png', faim: +70, joie: +5,  energie: +10, desc: 'Très nourrissant !' },
   { id: 'food-cake',   name: "Gâteau d'anniv",  price: 50, icon: '🎂', faim: +40, joie: +40, energie: +20, desc: 'Pour les occasions ✨' },
   { id: 'food-coffee', name: 'Café Turbo',      price: 30, icon: '☕', faim: -5,  joie: +5,  energie: +50, desc: 'Boost énergie max !' },
 ];

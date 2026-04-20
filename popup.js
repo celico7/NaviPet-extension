@@ -156,7 +156,7 @@ class AppController {
       const data = stateManager.data;
       data.isSleeping = !data.isSleeping;
       if (!data.isSleeping) { 
-        ui.spawnParticle('☀️');
+        ui.spawnParticle('assets/sprites/ui/sun.png');
         ui.showMessage('Bonjour !', '#2ecc71');
       } else {
         ui.spawnParticle('assets/sprites/ui/sleep.png');
