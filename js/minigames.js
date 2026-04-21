@@ -14,7 +14,7 @@ class MinigamesController {
     this.mgCurrentScore = 0;
     
     // État Memory
-    this.MEMORY_EMOJIS = ['🐛','🦋','🌺','⭐','🍕','🎮','🚀','💎'];
+    this.MEMORY_EMOJIS = ['🐛','🦋','🌺','<img src="assets/sprites/minigames/star.png" style="width:36px;height:36px;image-rendering:pixelated;vertical-align:middle;">','<img src="assets/sprites/shop/pizza.png" style="width:36px;height:36px;image-rendering:pixelated;vertical-align:middle;">','🎮','🚀','💎'];
     this.memoryFlipped = [];
     this.memoryMatched = 0;
     this.memoryLocked = false;
