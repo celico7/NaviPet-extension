@@ -28,8 +28,8 @@ export const SHOP_FOOD = [
   { id: 'food-pizza',  name: 'Pizza',           price: 15, icon: 'assets/sprites/shop/pizza.png', faim: +60, joie: +10, energie: -3,  desc: '+10 Joie bonus !' },
   { id: 'food-sushi',  name: 'Sushi',           price: 20, icon: 'assets/sprites/shop/sushis.png', faim: +50, joie: +15, energie: +5,  desc: '+5 Énergie bonus !' },
   { id: 'food-ramen',  name: 'Ramen',           price: 25, icon: 'assets/sprites/shop/ramen.png', faim: +70, joie: +5,  energie: +10, desc: 'Très nourrissant !' },
-  { id: 'food-cake',   name: "Gâteau d'anniv",  price: 50, icon: '🎂', faim: +40, joie: +40, energie: +20, desc: 'Pour les occasions ✨' },
-  { id: 'food-coffee', name: 'Café Turbo',      price: 30, icon: '☕', faim: -5,  joie: +5,  energie: +50, desc: 'Boost énergie max !' },
+  { id: 'food-cake',   name: "Gâteau d'anniv",  price: 50, icon: 'assets/sprites/shop/cake.png', faim: +40, joie: +40, energie: +20, desc: 'Pour les occasions ✨' },
+  { id: 'food-coffee', name: 'Café Turbo',      price: 30, icon: 'assets/sprites/shop/cafe.png', faim: -5,  joie: +5,  energie: +50, desc: 'Boost énergie max !' },
 ];
 
 export const SHOP_ACCESSORIES = [
