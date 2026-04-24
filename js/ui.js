@@ -142,6 +142,16 @@ class UIController {
     
     if (this.elements.levelDisplay) this.elements.levelDisplay.textContent = `Niv. ${data.niveau}`;
     if (this.elements.coinsDisplay) this.elements.coinsDisplay.textContent = data.coins;
+    
+    // Hint d'évolution
+    const evolutionHint = document.getElementById('evolution-hint');
+    if (evolutionHint) {
+      if ([4, 9, 19, 39].includes(data.niveau)) {
+        evolutionHint.style.display = 'block';
+      } else {
+        evolutionHint.style.display = 'none';
+      }
+    }
 
     // État de l'avatar et boutons
     this.updateAvatarState(data);

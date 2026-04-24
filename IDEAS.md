@@ -44,6 +44,10 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [ ] **Codes d'Ami (Export) 🤝 :** Générer un code court représentant l'état, le niveau et le look du pet pour le partager et "visiter" les pets de ses amis en lecture seule.
 - [ ] **Panthéon (Leaderboard) 🏆 :** Un mini-classement anonyme (via Firebase) pour voir qui a le pet le plus vieux ou le plus riche.
 
+## 🛠️ Modding & Système
+- [ ] **Météo Synchronisée ⛅ :** Récupérer la météo locale (via une API gratuite) et changer l'éclairage de la pièce ou ajouter des particules (pluie, neige) dans le `bg-default`.
+- [ ] **Système de fatigue dynamique 💤 :** Ajouter des cooldowns d'action pour rendre l'élevage plus réaliste et éviter qu'un utilisateur arrive niveau 100 le premier jour !
+
 ## 🌙 Idées futures
 - [ ] **Content Script :** Faire apparaître de la nourriture cliquable directement sur les pages web visitées.
 - [ ] **Système de Prestige :** Quand niveau 25 atteint, le pet prend sa retraite et laisse un œuf bonus avec +20 stats de départ.

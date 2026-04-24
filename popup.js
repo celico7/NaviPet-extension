@@ -90,7 +90,12 @@ class AppController {
     });
 
     // --- INTERACTIONS PET ---
+    let lastPetClickTime = 0;
     ui.elements.screenArea?.addEventListener('click', (e) => {
+      const now = Date.now();
+      if (now - lastPetClickTime < 500) return; // Anti-spam de clics (0.5s)
+      lastPetClickTime = now;
+      
       const data = stateManager.data;
       if (!data.isAdopted) return;
       if (data.isSleeping) { 
@@ -108,7 +113,11 @@ class AppController {
     });
 
     // --- BOUTONS D'ACTION PRINCIPAUX ---
+    let lastActionTime = 0;
     ui.elements.btnWork?.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastActionTime < 1000) return; // Cooldown anti-spam 1s
+      lastActionTime = now;
       const data = stateManager.data;
       if (data.energie < 20) { 
         ui.showMessage('Trop fatigué...', '#e74c3c'); 
@@ -128,9 +137,17 @@ class AppController {
       document.dispatchEvent(new CustomEvent('navipet:action', { detail: { type: 'work' } }));
     });
 
-    ui.elements.btnFeed?.addEventListener('click', () => shop.openInventory());
+    ui.elements.btnFeed?.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastActionTime < 1000) return;
+      lastActionTime = now;
+      shop.openInventory();
+    });
 
     ui.elements.btnPlay?.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastActionTime < 1000) return;
+      lastActionTime = now;
       const data = stateManager.data;
       if (data.energie < 15) { 
         ui.showMessage('Trop fatigué...', '#e74c3c'); 
@@ -149,10 +166,16 @@ class AppController {
     });
 
     ui.elements.btnArcade?.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastActionTime < 1000) return;
+      lastActionTime = now;
       ui.showScreen('arcadeScreen');
     });
 
     ui.elements.btnSleep?.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastActionTime < 1000) return;
+      lastActionTime = now;
       const data = stateManager.data;
       data.isSleeping = !data.isSleeping;
       if (!data.isSleeping) { 
