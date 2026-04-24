@@ -7,7 +7,7 @@ export const SPECIES_DATA = [
   { id: 'dog',    name: 'Chien',   emojis: ['assets/sprites/pets/chiot.png', '🐕', '🐕', '🐕', '🐕', '🐕'],   shiny: '⭐🐕' },
   { id: 'cat',    name: 'Chat',    emojis: ['assets/sprites/pets/kitty.png', '🐈', '🐈', '🐈', '🐈', '🐈'],   shiny: '💫🐈' },
   { id: 'robot',  name: 'Robot',   emojis: ['assets/sprites/pets/robot-box.png', '🤖', '👾', '👾', '👾', '👾'],   shiny: '🌟👾' },
-  { id: 'plant',  name: 'Plante',  emojis: ['assets/sprites/pets/pousse.png', '🌿', '🪴', '🌳', '🌳', '🌸'],  shiny: '🌟🌸' }
+  { id: 'plant',  name: 'Plante',  emojis: ['assets/sprites/pets/flower/pousse.png', 'assets/sprites/pets/flower/leaf.png', 'assets/sprites/pets/flower/planté.png', 'assets/sprites/pets/flower/plant.png', 'assets/sprites/pets/flower/plant.png', 'assets/sprites/pets/flower/fleur.png'],  shiny: 'assets/sprites/pets/flower/fleur.png' }
 ];
 
 export const XP_PER_LEVEL   = 100;
