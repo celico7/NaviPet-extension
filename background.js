@@ -51,8 +51,9 @@ function checkPetStatus() {
     if (!result.naviState || !result.naviState.isAdopted) return;
 
     const navi = result.naviState;
-    const DECAY_RATE_MINUTES = 5;
-    const DECAY_AMOUNT = 5;
+    // Paramètres de dégradation ralentis
+    const DECAY_RATE_MINUTES = 30; // Un cycle de dégradation toutes les 30 minutes
+    const DECAY_AMOUNT = 5;       // de -5 au lieu de chaque 5min
 
     // Calculer la dégradation actuelle
     const now = Date.now();

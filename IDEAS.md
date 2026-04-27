@@ -30,7 +30,7 @@ Si on doit s'arrêter ou changer de poste, on saura exactement où on s'était a
 - [x] **Humeur des Onglets (Mood Ring) 🌈 :** L'aura du pet change de couleur selon le nombre d'onglets ouverts (bleu zen → rouge chaos).
 - [x] **Synchronisation Mode Nuit 💤 :** Le pet met automatiquement son bonnet de nuit 🌙 après 19h !
 - [ ] **Effets météo animés :** Selon la lune ou le stade du jour, de la pluie 🌧️ ou des étoiles filantes ✨.
-- [ ] **Curseur interactif :** Remplacer le curseur par un pointeur spécial quand on survole l'espace de jeu.
+- [x] **Curseur interactif :** Remplacer le curseur par un pointeur spécial quand on survole l'espace de jeu.
 
 ## 📈 Productivité & Quêtes
 - [x] **Navi-Défis Journaliers 📜 :** Des objectifs type "Cliquer 100 fois" ou "Travailler 5 fois" pour gagner +50 DevCoins.

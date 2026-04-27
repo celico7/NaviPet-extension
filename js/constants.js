@@ -11,7 +11,7 @@ export const SPECIES_DATA = [
 ];
 
 export const XP_PER_LEVEL   = 100;
-export const DECAY_RATE_MIN = 5;
+export const DECAY_RATE_MIN = 30;
 export const DECAY_AMOUNT   = 5;
 export const MAX_STAT       = 100;
 

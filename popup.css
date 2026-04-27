@@ -52,9 +52,8 @@ body {
 .btn-quests-style { position: absolute; bottom: -32px; right: 0; z-index: 10; background: none; border: none; cursor: pointer; font-size: 14px; padding: 0; }
 
 /* Zone centrale avec le pet */
-#screen-area { height: 185px; position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column; cursor: pointer; overflow: hidden; }
+#screen-area { height: 185px; position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path fill='white' stroke='black' stroke-width='1.5' d='M3 3l11 11h-5l3 6-3 1-3-6-4 4z'/></svg>") 3 3, default; overflow: hidden; }
 #mood-aura { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; transition: box-shadow 1.5s ease; border-radius: 0; }
-.avatar-wrapper { position:relative; display:inline-flex; justify-content:center; align-items:flex-start; z-index:10; }
 .avatar { font-size:64px; width: 64px; height: 64px; display:flex; justify-content:center; align-items:center; filter:drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); position: relative; }
 #accessory-layer { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 28px; width: 64px; height: 64px; display: flex; justify-content: center; align-items: flex-end; pointer-events: none; z-index: 11; line-height: 1; display: none; }
 #shiny-badge { position: absolute; top: -5px; right: -15px; font-size: 14px; z-index: 12; animation: shinyPulse 1.5s infinite; display: none; }
@@ -196,7 +195,7 @@ body.theme-night #status-message { text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1p
 .anim-shiny { animation:shinyBob 1.8s infinite ease-in-out; filter:drop-shadow(0 0 8px #ffeab0) drop-shadow(0 0 15px #ffeab0); }
 
 /* ===== BACKGROUNDS ===== */
-.screen-area-base { height:185px; position:relative; display:flex; justify-content:center; align-items:center; flex-direction:column; cursor:pointer; overflow:hidden; }
+.screen-area-base { height:185px; position:relative; display:flex; justify-content:center; align-items:center; flex-direction:column; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path fill='white' stroke='black' stroke-width='1.5' d='M3 3l11 11h-5l3 6-3 1-3-6-4 4z'/></svg>") 3 3, default; overflow:hidden; }
 .bg-default { background:transparent; }
 .bg-hacker  { background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); box-shadow:inset 0 0 10px #a2d246; }
 .bg-beach   { background:linear-gradient(to bottom,#5acfed 0%,#5acfed 60%,#ffeab0 60%,#ffb368 100%); }
